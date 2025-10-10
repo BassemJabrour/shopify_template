@@ -1,32 +1,33 @@
-<!-- templates/cart.liquid -->
-<div class="cart-page" data-section-type="cart-template" data-section-id="{{ section.id }}">
+<!-- Main Cart Section -->
+<div class="main-cart" data-section-id="{{ section.id }}" data-section-type="main-cart">
   {%- if cart.item_count > 0 -%}
-    <div class="cart-page__container">
-      <div class="cart-page__header">
-        <h1 class="cart-page__title">Your Shopping Bag</h1>
-        <p class="cart-page__item-count">{{ cart.item_count }} item{%- if cart.item_count > 1 -%}s{%- endif -%}</p>
+    <div class="main-cart__container">
+      <div class="main-cart__header">
+        <h1 class="main-cart__title">Your Shopping Bag</h1>
+        <p class="main-cart__item-count">{{ cart.item_count }} item{%- if cart.item_count > 1 -%}s{%- endif -%}</p>
       </div>
       
-      <div class="cart-page__content">
+      <div class="main-cart__content">
         <!-- Cart Items Column -->
-        <div class="cart-page__items">
+        <div class="main-cart__items">
           {%- for item in cart.items -%}
             {% render 'cart-item', item: item %}
           {%- endfor -%}
           
-          <!-- Continue Shopping Button -->
-          <div class="cart-page__continue">
-            <a href="/collections/all" class="btn btn--outline">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" class="btn__icon">
-                <path d="M10 4L6 8L10 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              Continue Shopping
-            </a>
-          </div>
+          {% if section.settings.enable_continue_shopping %}
+            <div class="main-cart__continue">
+              <a href="/collections/all" class="btn btn--outline">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" class="btn__icon">
+                  <path d="M10 4L6 8L10 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Continue Shopping
+              </a>
+            </div>
+          {% endif %}
         </div>
         
         <!-- Cart Summary Column -->
-        <div class="cart-page__summary">
+        <div class="main-cart__summary">
           <div class="cart-summary">
             <h3 class="cart-summary__title">Order Summary</h3>
             
@@ -43,17 +44,19 @@
                 </div>
               {%- endif -%}
               
-              <!-- Shipping Estimate -->
-              <div class="cart-summary__row">
-                <span>Shipping</span>
-                <span class="cart-summary__shipping">Calculated at checkout</span>
-              </div>
-              
-              <!-- Tax Estimate -->
-              <div class="cart-summary__row">
-                <span>Tax</span>
-                <span class="cart-summary__tax">Calculated at checkout</span>
-              </div>
+              {% if section.settings.show_tax_and_shipping %}
+                <!-- Shipping Estimate -->
+                <div class="cart-summary__row">
+                  <span>Shipping</span>
+                  <span class="cart-summary__shipping">Calculated at checkout</span>
+                </div>
+                
+                <!-- Tax Estimate -->
+                <div class="cart-summary__row">
+                  <span>Tax</span>
+                  <span class="cart-summary__tax">Calculated at checkout</span>
+                </div>
+              {% endif %}
               
               <div class="cart-summary__divider"></div>
               
@@ -113,14 +116,14 @@
     </div>
   {%- else -%}
     <!-- Empty Cart State -->
-    <div class="cart-empty">
-      <div class="cart-empty__content">
-        <svg width="80" height="80" viewBox="0 0 80 80" fill="none" class="cart-empty__icon">
+    <div class="main-cart__empty">
+      <div class="main-cart__empty-content">
+        <svg width="80" height="80" viewBox="0 0 80 80" fill="none" class="main-cart__empty-icon">
           <path d="M26.6667 26.6667H53.3333L58.6667 40L70 60H10L21.3333 40M26.6667 26.6667L21.3333 40M26.6667 26.6667V20C26.6667 16.3181 29.6518 13.3333 33.3333 13.3333H46.6667C50.3482 13.3333 53.3333 16.3181 53.3333 20V26.6667" stroke="var(--color-gold)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
           <path d="M40 46.6667C43.6819 46.6667 46.6667 43.6819 46.6667 40C46.6667 36.3181 43.6819 33.3333 40 33.3333C36.3181 33.3333 33.3333 36.3181 33.3333 40C33.3333 43.6819 36.3181 46.6667 40 46.6667Z" stroke="var(--color-gold)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-        <h2 class="cart-empty__title">Your bag is empty</h2>
-        <p class="cart-empty__description">Discover our luxury collection and add items to your bag</p>
+        <h2 class="main-cart__empty-title">Your bag is empty</h2>
+        <p class="main-cart__empty-description">Discover our luxury collection and add items to your bag</p>
         <a href="/collections/all" class="btn btn--primary">Start Shopping</a>
       </div>
     </div>
@@ -129,11 +132,37 @@
 
 {% schema %}
 {
-  "name": "Cart Page",
-  "settings": [],
+  "name": "Main Cart",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_cart_note",
+      "default": true,
+      "label": "Show cart note"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tax_and_shipping",
+      "default": false,
+      "label": "Show tax and shipping estimates"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_ajax",
+      "default": true,
+      "label": "Enable AJAX cart updates"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_continue_shopping",
+      "default": true,
+      "label": "Enable continue shopping button"
+    }
+  ],
   "presets": [
     {
-      "name": "Cart Page"
+      "name": "Main Cart",
+      "category": "Cart"
     }
   ]
 }

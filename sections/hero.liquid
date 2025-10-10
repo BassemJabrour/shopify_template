@@ -1,0 +1,58 @@
+<!-- Hero Section -->
+<div class="hero" data-section-id="{{ section.id }}" data-section-type="hero">
+  <div class="hero__container">
+    <div class="hero__content">
+      <h1 class="hero__title">
+        {{ section.settings.hero_title | default: "Timeless Elegance, Modern Luxury" }}
+      </h1>
+      <p class="hero__description">
+        {{ section.settings.hero_description | default: "Discover our curated collection of premium women's clothing, crafted with attention to detail and designed for the modern woman." }}
+      </p>
+      <div class="hero__actions">
+        <a href="/collections/all" class="hero__btn hero__btn--primary">
+          Shop Collection
+        </a>
+        <a href="/pages/about" class="hero__btn hero__btn--secondary">
+          Learn More
+        </a>
+      </div>
+    </div>
+    
+    {%- if section.settings.hero_image != blank -%}
+      <div class="hero__image">
+        {{ section.settings.hero_image | image_url: width: 800 | image_tag: alt: section.settings.hero_title, class: 'hero__image-element' }}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Hero Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "hero_title",
+      "label": "Hero title",
+      "default": "Timeless Elegance, Modern Luxury"
+    },
+    {
+      "type": "textarea",
+      "id": "hero_description",
+      "label": "Hero description",
+      "default": "Discover our curated collection of premium women's clothing, crafted with attention to detail and designed for the modern woman."
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Section",
+      "category": "Image"
+    }
+  ]
+}
+{% endschema %}
