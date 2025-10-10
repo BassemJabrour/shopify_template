@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "main-hero": {
+      "type": "hero",
+      "settings": {
+        "hero_title": "Timeless Elegance, Modern Luxury",
+        "hero_description": "Discover our curated collection of premium women's clothing, crafted with attention to detail and designed for the modern woman.",
+        "hero_image": null
+      }
+    }
+  },
+  "order": ["main-hero"]
+}

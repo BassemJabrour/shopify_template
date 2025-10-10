@@ -1,0 +1,19 @@
+{
+  "sections": {
+    "main-product": {
+      "type": "main-product",
+      "settings": {
+        "enable_video_looping": false,
+        "enable_image_zoom": true,
+        "enable_payment_button": true,
+        "show_quantity_selector": true,
+        "show_vendor": true,
+        "show_sku": true,
+        "show_type": true,
+        "show_tags": true,
+        "show_collections": true
+      }
+    }
+  },
+  "order": ["main-product"]
+}
