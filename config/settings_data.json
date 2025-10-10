@@ -1,0 +1,35 @@
+{
+  "current": {
+    "sections": {
+      "header": {
+        "type": "header",
+        "settings": {
+          "logo": null,
+          "logo_max_width": 100
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "logo": null,
+          "brand_description": "Luxury women's clothing boutique offering premium quality and timeless elegance.",
+          "show_social_icons": true,
+          "social_facebook_link": "",
+          "social_instagram_link": "",
+          "social_pinterest_link": "",
+          "show_payment_icons": true
+        }
+      }
+    },
+    "content_for_index": [
+      {
+        "type": "hero",
+        "settings": {
+          "hero_title": "Timeless Elegance, Modern Luxury",
+          "hero_description": "Discover our curated collection of premium women's clothing, crafted with attention to detail and designed for the modern woman.",
+          "hero_image": null
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,97 @@
+<!-- Homepage Template -->
+<div class="homepage">
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero__container">
+      <div class="hero__content">
+        <h1 class="hero__title">
+          {{ section.settings.hero_title | default: "Timeless Elegance, Modern Luxury" }}
+        </h1>
+        <p class="hero__description">
+          {{ section.settings.hero_description | default: "Discover our curated collection of premium women's clothing, crafted with attention to detail and designed for the modern woman." }}
+        </p>
+        <div class="hero__actions">
+          <a href="/collections/all" class="hero__btn hero__btn--primary">
+            Shop Collection
+          </a>
+          <a href="/pages/about" class="hero__btn hero__btn--secondary">
+            Learn More
+          </a>
+        </div>
+      </div>
+      
+      {%- if section.settings.hero_image != blank -%}
+        <div class="hero__image">
+          {{ section.settings.hero_image | image_url: width: 800 | image_tag: alt: section.settings.hero_title, class: 'hero__image-element' }}
+        </div>
+      {%- endif -%}
+    </div>
+  </section>
+  
+  <!-- Featured Collections -->
+  <section class="featured-collections">
+    <div class="featured-collections__container">
+      <h2 class="featured-collections__title">Featured Collections</h2>
+      
+      <div class="featured-collections__grid">
+        {%- for collection in collections limit: 3 -%}
+          <div class="featured-collection">
+            <a href="{{ collection.url }}" class="featured-collection__link">
+              {%- if collection.image -%}
+                {{ collection.image | image_url: width: 400 | image_tag: alt: collection.title, class: 'featured-collection__image' }}
+              {%- else -%}
+                <div class="featured-collection__placeholder">
+                  <span class="featured-collection__placeholder-text">{{ collection.title }}</span>
+                </div>
+              {%- endif -%}
+              
+              <div class="featured-collection__content">
+                <h3 class="featured-collection__name">{{ collection.title }}</h3>
+                <p class="featured-collection__product-count">{{ collection.all_products_count }} products</p>
+              </div>
+            </a>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+  
+  <!-- About Preview -->
+  <section class="about-preview">
+    <div class="about-preview__container">
+      <div class="about-preview__content">
+        <h2 class="about-preview__title">Craftsmanship & Quality</h2>
+        <p class="about-preview__description">
+          Every piece in our collection is carefully selected for its quality, craftsmanship, and timeless appeal. 
+          We believe in sustainable fashion that lasts beyond seasons.
+        </p>
+        <a href="/pages/about" class="about-preview__btn">Our Story</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "Homepage",
+  "settings": [
+    {
+      "type": "text",
+      "id": "hero_title",
+      "label": "Hero title",
+      "default": "Timeless Elegance, Modern Luxury"
+    },
+    {
+      "type": "textarea",
+      "id": "hero_description",
+      "label": "Hero description",
+      "default": "Discover our curated collection of premium women's clothing, crafted with attention to detail and designed for the modern woman."
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero image"
+    }
+  ]
+}
+{% endschema %}

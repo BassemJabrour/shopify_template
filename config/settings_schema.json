@@ -1,0 +1,164 @@
+[
+  {
+    "name": "Theme Settings",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Brand Settings"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo image",
+        "info": "Upload your brand logo"
+      },
+      {
+        "type": "text",
+        "id": "brand_name",
+        "label": "Brand name",
+        "default": "Luxury Boutique"
+      },
+      {
+        "type": "textarea",
+        "id": "brand_description",
+        "label": "Brand description",
+        "default": "Luxury women's clothing boutique offering premium quality and timeless elegance."
+      },
+      {
+        "type": "header",
+        "content": "Color Settings"
+      },
+      {
+        "type": "color",
+        "id": "color_navy",
+        "label": "Navy Color",
+        "default": "#0A2540"
+      },
+      {
+        "type": "color",
+        "id": "color_cream",
+        "label": "Cream Color",
+        "default": "#F8F5F0"
+      },
+      {
+        "type": "color",
+        "id": "color_gold",
+        "label": "Gold Color",
+        "default": "#D4AF37"
+      },
+      {
+        "type": "color",
+        "id": "color_burgundy",
+        "label": "Burgundy Color",
+        "default": "#8B2635"
+      },
+      {
+        "type": "header",
+        "content": "Typography Settings"
+      },
+      {
+        "type": "select",
+        "id": "heading_font",
+        "label": "Heading font",
+        "options": [
+          {
+            "value": "playfair-display",
+            "label": "Playfair Display"
+          },
+          {
+            "value": "cormorant",
+            "label": "Cormorant"
+          },
+          {
+            "value": "baskerville",
+            "label": "Baskerville"
+          }
+        ],
+        "default": "playfair-display"
+      },
+      {
+        "type": "select",
+        "id": "body_font",
+        "label": "Body font",
+        "options": [
+          {
+            "value": "lato",
+            "label": "Lato"
+          },
+          {
+            "value": "open-sans",
+            "label": "Open Sans"
+          },
+          {
+            "value": "inter",
+            "label": "Inter"
+          }
+        ],
+        "default": "lato"
+      },
+      {
+        "type": "header",
+        "content": "Homepage Settings"
+      },
+      {
+        "type": "text",
+        "id": "hero_title",
+        "label": "Hero title",
+        "default": "Timeless Elegance, Modern Luxury"
+      },
+      {
+        "type": "textarea",
+        "id": "hero_description",
+        "label": "Hero description",
+        "default": "Discover our curated collection of premium women's clothing, crafted with attention to detail and designed for the modern woman."
+      },
+      {
+        "type": "image_picker",
+        "id": "hero_image",
+        "label": "Hero image",
+        "info": "Upload a high-quality hero image"
+      },
+      {
+        "type": "header",
+        "content": "Social Media"
+      },
+      {
+        "type": "url",
+        "id": "social_facebook",
+        "label": "Facebook URL"
+      },
+      {
+        "type": "url",
+        "id": "social_instagram",
+        "label": "Instagram URL"
+      },
+      {
+        "type": "url",
+        "id": "social_pinterest",
+        "label": "Pinterest URL"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_social_icons",
+        "label": "Show social icons",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Footer Settings"
+      },
+      {
+        "type": "textarea",
+        "id": "footer_description",
+        "label": "Footer description",
+        "default": "Luxury women's clothing boutique offering premium quality and timeless elegance."
+      },
+      {
+        "type": "checkbox",
+        "id": "show_payment_icons",
+        "label": "Show payment icons",
+        "default": true
+      }
+    ]
+  }
+]

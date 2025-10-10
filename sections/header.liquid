@@ -1,0 +1,139 @@
+<header class="header" role="banner">
+  <!-- Desktop Header -->
+  <div class="header__desktop">
+    <div class="header__container">
+      <!-- Logo -->
+      <div class="header__logo">
+        <a href="/" class="header__logo-link" aria-label="{{ shop.name }}">
+          {%- if section.settings.logo != blank -%}
+            {{ section.settings.logo | image_url: width: 200 | image_tag: alt: shop.name, class: 'header__logo-image' }}
+          {%- else -%}
+            <span class="header__logo-text">{{ shop.name }}</span>
+          {%- endif -%}
+        </a>
+      </div>
+      
+      <!-- Main Navigation -->
+      <nav class="header__nav" role="navigation">
+        <ul class="header__nav-list">
+          {%- for link in linklists.main-menu.links -%}
+            <li class="header__nav-item">
+              <a href="{{ link.url }}" class="header__nav-link">{{ link.title }}</a>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </nav>
+      
+      <!-- Header Actions -->
+      <div class="header__actions">
+        <!-- Search -->
+        <button class="header__action-btn header__search-btn" aria-label="Search">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M19 19L13 13M15 8C15 11.866 11.866 15 8 15C4.13401 15 1 11.866 1 8C1 4.13401 4.13401 1 8 1C11.866 1 15 4.13401 15 8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        
+        <!-- Account -->
+        <a href="/account" class="header__action-btn" aria-label="Account">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M16 18V16C16 14.9391 15.5786 13.9217 14.8284 13.1716C14.0783 12.4214 13.0609 12 12 12H8C6.93913 12 5.92172 12.4214 5.17157 13.1716C4.42143 13.9217 4 14.9391 4 16V18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M10 10C11.6569 10 13 8.65685 13 7C13 5.34315 11.6569 4 10 4C8.34315 4 7 5.34315 7 7C7 8.65685 8.34315 10 10 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        
+        <!-- Cart -->
+        <a href="/cart" class="header__action-btn header__cart-btn" aria-label="Cart">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M3 1H1V3H3L5.6 9.6L4.25 11.03C4.09 11.18 4 11.38 4 11.59V17C4 17.5304 4.21071 18.0391 4.58579 18.4142C4.96086 18.7893 5.46957 19 6 19H16C16.5304 19 17.0391 18.7893 17.4142 18.4142C17.7893 18.0391 18 17.5304 18 17V11.59C18 11.38 17.91 11.18 17.75 11.03L16.4 9.6L18 3H5M7 13C6.46957 13 5.96086 13.2107 5.58579 13.5858C5.21071 13.9609 5 14.4696 5 15C5 15.5304 5.21071 16.0391 5.58579 16.4142C5.96086 16.7893 6.46957 17 7 17C7.53043 17 8.03914 16.7893 8.41421 16.4142C8.78929 16.0391 9 15.5304 9 15C9 14.4696 8.78929 13.9609 8.41421 13.5858C8.03914 13.2107 7.53043 13 7 13ZM15 13C14.4696 13 13.9609 13.2107 13.5858 13.5858C13.2107 13.9609 13 14.4696 13 15C13 15.5304 13.2107 16.0391 13.5858 16.4142C13.9609 16.7893 14.4696 17 15 17C15.5304 17 16.0391 16.7893 16.4142 16.4142C16.7893 16.0391 17 15.5304 17 15C17 14.4696 16.7893 13.9609 16.4142 13.5858C16.0391 13.2107 15.5304 13 15 13Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          {%- if cart.item_count > 0 -%}
+            <span class="header__cart-count">{{ cart.item_count }}</span>
+          {%- endif -%}
+        </a>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Mobile Header -->
+  <div class="header__mobile">
+    <div class="header__mobile-container">
+      <!-- Mobile Menu Toggle -->
+      <button class="header__mobile-toggle" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      
+      <!-- Mobile Logo -->
+      <div class="header__mobile-logo">
+        <a href="/" class="header__logo-link" aria-label="{{ shop.name }}">
+          {%- if section.settings.logo != blank -%}
+            {{ section.settings.logo | image_url: width: 120 | image_tag: alt: shop.name, class: 'header__logo-image' }}
+          {%- else -%}
+            <span class="header__logo-text">{{ shop.name }}</span>
+          {%- endif -%}
+        </a>
+      </div>
+      
+      <!-- Mobile Cart -->
+      <a href="/cart" class="header__mobile-cart" aria-label="Cart">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M3 1H1V3H3L5.6 9.6L4.25 11.03C4.09 11.18 4 11.38 4 11.59V17C4 17.5304 4.21071 18.0391 4.58579 18.4142C4.96086 18.7893 5.46957 19 6 19H16C16.5304 19 17.0391 18.7893 17.4142 18.4142C17.7893 18.0391 18 17.5304 18 17V11.59C18 11.38 17.91 11.18 17.75 11.03L16.4 9.6L18 3H5M7 13C6.46957 13 5.96086 13.2107 5.58579 13.5858C5.21071 13.9609 5 14.4696 5 15C5 15.5304 5.21071 16.0391 5.58579 16.4142C5.96086 16.7893 6.46957 17 7 17C7.53043 17 8.03914 16.7893 8.41421 16.4142C8.78929 16.0391 9 15.5304 9 15C9 14.4696 8.78929 13.9609 8.41421 13.5858C8.03914 13.2107 7.53043 13 7 13ZM15 13C14.4696 13 13.9609 13.2107 13.5858 13.5858C13.2107 13.9609 13 14.4696 13 15C13 15.5304 13.2107 16.0391 13.5858 16.4142C13.9609 16.7893 14.4696 17 15 17C15.5304 17 16.0391 16.7893 16.4142 16.4142C16.7893 16.0391 17 15.5304 17 15C17 14.4696 16.7893 13.9609 16.4142 13.5858C16.0391 13.2107 15.5304 13 15 13Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        {%- if cart.item_count > 0 -%}
+          <span class="header__cart-count">{{ cart.item_count }}</span>
+        {%- endif -%}
+      </a>
+    </div>
+  </div>
+  
+  <!-- Mobile Menu Overlay -->
+  <div class="mobile-menu-overlay" onclick="toggleMobileMenu()"></div>
+  
+  <!-- Mobile Menu -->
+  <div class="mobile-menu">
+    <div class="mobile-menu__content">
+      <button class="mobile-menu__close" onclick="toggleMobileMenu()" aria-label="Close menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      
+      <nav class="mobile-menu__nav">
+        <ul class="mobile-menu__list">
+          {%- for link in linklists.main-menu.links -%}
+            <li class="mobile-menu__item">
+              <a href="{{ link.url }}" class="mobile-menu__link">{{ link.title }}</a>
+            </li>
+          {%- endfor -%}
+          <li class="mobile-menu__item">
+            <a href="/account" class="mobile-menu__link">Account</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image"
+    },
+    {
+      "type": "range",
+      "id": "logo_max_width",
+      "min": 50,
+      "max": 250,
+      "step": 5,
+      "unit": "px",
+      "label": "Custom logo width",
+      "default": 100
+    }
+  ]
+}
+{% endschema %}

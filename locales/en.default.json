@@ -1,0 +1,72 @@
+{
+  "general": {
+    "search": "Search",
+    "account": "Account",
+    "cart": "Cart",
+    "menu": "Menu",
+    "close": "Close",
+    "shop_now": "Shop Now",
+    "learn_more": "Learn More",
+    "view_all": "View All",
+    "add_to_cart": "Add to Cart",
+    "sold_out": "Sold Out",
+    "unavailable": "Unavailable"
+  },
+  "navigation": {
+    "home": "Home",
+    "collections": "Collections",
+    "products": "Products",
+    "about": "About",
+    "contact": "Contact",
+    "blog": "Blog",
+    "search": "Search products..."
+  },
+  "footer": {
+    "quick_links": "Quick Links",
+    "shop_all": "Shop All",
+    "about_us": "About Us",
+    "contact": "Contact",
+    "shipping_returns": "Shipping & Returns",
+    "privacy_policy": "Privacy Policy",
+    "terms_of_service": "Terms of Service",
+    "newsletter": "Newsletter",
+    "subscribe": "Subscribe",
+    "follow_us": "Follow Us",
+    "payment_methods": "Payment Methods",
+    "copyright": "© {{ year }} {{ shop_name }}. All rights reserved."
+  },
+  "homepage": {
+    "hero_title": "Timeless Elegance, Modern Luxury",
+    "hero_description": "Discover our curated collection of premium women's clothing, crafted with attention to detail and designed for the modern woman.",
+    "featured_collections": "Featured Collections",
+    "shop_collection": "Shop Collection",
+    "our_story": "Our Story"
+  },
+  "products": {
+    "price": "Price",
+    "quantity": "Quantity",
+    "description": "Description",
+    "features": "Features",
+    "size_guide": "Size Guide",
+    "reviews": "Reviews",
+    "related_products": "Related Products"
+  },
+  "cart": {
+    "title": "Your Cart",
+    "empty": "Your cart is empty",
+    "continue_shopping": "Continue Shopping",
+    "subtotal": "Subtotal",
+    "shipping": "Shipping",
+    "tax": "Tax",
+    "total": "Total",
+    "checkout": "Checkout",
+    "update": "Update",
+    "remove": "Remove"
+  },
+  "errors": {
+    "general": "Something went wrong. Please try again.",
+    "404": "Page not found",
+    "search": "No results found",
+    "product_unavailable": "This product is currently unavailable"
+  }
+}

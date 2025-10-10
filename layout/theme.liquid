@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="{{ request.locale.iso_code }}" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  
+  <!-- Preload critical fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <!-- SEO Meta Tags -->
+  {%- if page_description -%}
+    <meta name="description" content="{{ page_description | escape }}">
+  {%- endif -%}
+  
+  {%- if canonical_url != blank -%}
+    <link rel="canonical" href="{{ canonical_url }}">
+  {%- endif -%}
+  
+  <!-- Theme CSS -->
+  {{ 'fonts.css.liquid' | asset_url | stylesheet_tag }}
+  {{ 'theme.css.liquid' | asset_url | stylesheet_tag }}
+  
+  <!-- Shopify Required Scripts -->
+  {{ content_for_header }}
+  
+  <title>
+    {{ page_title }}
+    {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
+    {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
+    {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+  </title>
+</head>
+
+<body class="template-{{ template | split: '.' | first }}">
+  <!-- Header Section -->
+  {% section 'header' %}
+  
+  <!-- Main Content -->
+  <main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
+    {{ content_for_layout }}
+  </main>
+  
+  <!-- Footer Section -->
+  {% section 'footer' %}
+  
+  <!-- JavaScript -->
+  <script>
+    // Theme JavaScript
+    document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+    
+    // Mobile menu toggle
+    function toggleMobileMenu() {
+      const menu = document.querySelector('.mobile-menu');
+      const overlay = document.querySelector('.mobile-menu-overlay');
+      menu.classList.toggle('active');
+      overlay.classList.toggle('active');
+      document.body.classList.toggle('menu-open');
+    }
+    
+    // Initialize theme
+    document.addEventListener('DOMContentLoaded', function() {
+      // Add any initialization code here
+      console.log('Luxury Shopify Theme Loaded');
+    });
+  </script>
+</body>
+</html>
