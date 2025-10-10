@@ -1,0 +1,130 @@
+<!-- Product Card Component - Luxury Women's Clothing -->
+<div class="product-card" data-product-card data-product-id="{{ product.id }}">
+  <!-- Product Image -->
+  <div class="product-card__image-container">
+    <a href="{{ product.url }}" class="product-card__image-link">
+      {% if product.featured_image %}
+        {{ product.featured_image | image_url: width: 400, height: 533 | image_tag: 
+          alt: product.featured_image.alt, 
+          class: 'product-card__image',
+          loading: 'lazy'
+        }}
+      {% else %}
+        <div class="product-card__image-placeholder">
+          <svg width="400" height="533" viewBox="0 0 400 533" fill="none">
+            <rect width="400" height="533" fill="var(--color-gray-200)"/>
+            <path d="M200 266L150 216L250 316" stroke="var(--color-gray-400)" stroke-width="2"/>
+          </svg>
+        </div>
+      {% endif %}
+    </a>
+
+    <!-- Product Badges -->
+    <div class="product-card__badges">
+      {% if product.compare_at_price > product.price %}
+        <span class="product-badge product-badge--sale">Sale</span>
+      {% endif %}
+      
+      {% if product.tags contains 'new' %}
+        <span class="product-badge product-badge--new">New</span>
+      {% endif %}
+      
+      {% if product.tags contains 'limited' %}
+        <span class="product-badge product-badge--limited">Limited</span>
+      {% endif %}
+    </div>
+
+    <!-- Quick Actions (Hover) -->
+    <div class="product-card__quick-actions">
+      <!-- Quick View -->
+      <button class="quick-action-btn quick-action-btn--view" data-quick-view="{{ product.id }}">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M1 10S4 3 10 3s9 7 9 7-3 7-9 7-9-7-9-7z" stroke="currentColor" stroke-width="2"/>
+          <circle cx="10" cy="10" r="3" stroke="currentColor" stroke-width="2"/>
+        </svg>
+        Quick View
+      </button>
+
+      <!-- Add to Cart -->
+      {% unless product.available %}
+        <button class="quick-action-btn quick-action-btn--sold-out" disabled>
+          Sold Out
+        </button>
+      {% else %}
+        <form action="/cart/add" method="post" class="product-card__form">
+          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+          <button type="submit" class="quick-action-btn quick-action-btn--cart">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M3 1H1V3H3L5.6 9.6L4.25 11.03C4.09 11.18 4 11.38 4 11.59V17C4 17.5304 4.21071 18.0391 4.58579 18.4142C4.96086 18.7893 5.46957 19 6 19H16C16.5304 19 17.0391 18.7893 17.4142 18.4142C17.7893 18.0391 18 17.5304 18 17V11.59C18 11.38 17.91 11.18 17.75 11.03L16.4 9.6L18 3H5M7 13C6.46957 13 5.96086 13.2107 5.58579 13.5858C5.21071 13.9609 5 14.4696 5 15C5 15.5304 5.21071 16.0391 5.58579 16.4142C5.96086 16.7893 6.46957 17 7 17C7.53043 17 8.03914 16.7893 8.41421 16.4142C8.78929 16.0391 9 15.5304 9 15C9 14.4696 8.78929 13.9609 8.41421 13.5858C8.03914 13.2107 7.53043 13 7 13ZM15 13C14.4696 13 13.9609 13.2107 13.5858 13.5858C13.2107 13.9609 13 14.4696 13 15C13 15.5304 13.2107 16.0391 13.5858 16.4142C13.9609 16.7893 14.4696 17 15 17C15.5304 17 16.0391 16.7893 16.4142 16.4142C16.7893 16.0391 17 15.5304 17 15C17 14.4696 16.7893 13.9609 16.4142 13.5858C16.0391 13.2107 15.5304 13 15 13Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Add to Cart
+          </button>
+        </form>
+      {% endunless %}
+    </div>
+  </div>
+
+  <!-- Product Info -->
+  <div class="product-card__info">
+    <!-- Product Title -->
+    <h3 class="product-card__title text-primary text-lg text-semibold">
+      <a href="{{ product.url }}" class="product-card__title-link">{{ product.title }}</a>
+    </h3>
+
+    <!-- Product Vendor -->
+    {% if product.vendor != blank %}
+      <p class="product-card__vendor text-secondary text-sm text-medium">{{ product.vendor }}</p>
+    {% endif %}
+
+    <!-- Product Price -->
+    <div class="product-card__price">
+      {% if product.compare_at_price > product.price %}
+        <span class="product-price product-price--sale text-secondary text-base text-medium">
+          {{ product.price | money }}
+        </span>
+        <span class="product-price product-price--compare text-secondary text-sm text-light line-through">
+          {{ product.compare_at_price | money }}
+        </span>
+      {% else %}
+        <span class="product-price product-price--regular text-secondary text-base text-medium">
+          {{ product.price | money }}
+        </span>
+      {% endif %}
+    </div>
+
+    <!-- Product Options Preview -->
+    {% if product.variants.size > 1 %}
+      <div class="product-card__options">
+        {% for option in product.options_with_values %}
+          {% if option.name == 'Color' or option.name == 'Size' %}
+            <div class="product-option-preview">
+              <span class="option-label text-secondary text-xs text-medium">{{ option.name }}:</span>
+              <span class="option-values text-secondary text-xs">{{ option.values | join: ', ' }}</span>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <!-- Product Rating -->
+    {% if product.metafields.reviews.rating.value != blank %}
+      <div class="product-card__rating">
+        <div class="rating-stars">
+          {% assign rating = product.metafields.reviews.rating.value.rating | round %}
+          {% for i in (1..5) %}
+            {% if i <= rating %}
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                <path d="M8 12.513l-4.5 2.367 0.86-5.02L0.5 6.553l5.03-0.731L8 1l2.47 4.822 5.03 0.731-3.86 3.307 0.86 5.02z"/>
+              </svg>
+            {% else %}
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="var(--color-gray-300)">
+                <path d="M8 12.513l-4.5 2.367 0.86-5.02L0.5 6.553l5.03-0.731L8 1l2.47 4.822 5.03 0.731-3.86 3.307 0.86 5.02z"/>
+              </svg>
+            {% endif %}
+          {% endfor %}
+        </div>
+        <span class="rating-value text-secondary text-xs">({{ product.metafields.reviews.rating_count }})</span>
+      </div>
+    {% endif %}
+  </div>
+</div>

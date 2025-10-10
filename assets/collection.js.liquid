@@ -1,0 +1,414 @@
+// Collection JavaScript - Luxury Women's Clothing Theme
+class CollectionManager {
+  constructor() {
+    this.initializeEventListeners();
+    this.setupFilters();
+    this.setupSearch();
+    this.setupProductCards();
+  }
+
+  // Initialize all event listeners
+  initializeEventListeners() {
+    // Sort functionality
+    const sortSelect = document.getElementById('SortBy');
+    if (sortSelect) {
+      sortSelect.addEventListener('change', (e) => {
+        this.handleSortChange(e.target.value);
+      });
+    }
+
+    // Filter toggle
+    const filterToggle = document.querySelector('[data-filter-toggle]');
+    if (filterToggle) {
+      filterToggle.addEventListener('click', () => {
+        this.toggleFilters();
+      });
+    }
+
+    // Filter close
+    const filterClose = document.querySelector('[data-filters-close]');
+    if (filterClose) {
+      filterClose.addEventListener('click', () => {
+        this.closeFilters();
+      });
+    }
+
+    // Active filter removal
+    document.addEventListener('click', (e) => {
+      if (e.target.closest('[data-filter-remove]')) {
+        this.removeFilter(e.target.closest('[data-filter-remove]').dataset.filterRemove);
+      }
+    });
+  }
+
+  // Filter management
+  setupFilters() {
+    const filterApply = document.querySelector('[data-filter-apply]');
+    const filterClear = document.querySelector('[data-filter-clear]');
+
+    if (filterApply) {
+      filterApply.addEventListener('click', () => {
+        this.applyFilters();
+      });
+    }
+
+    if (filterClear) {
+      filterClear.addEventListener('click', () => {
+        this.clearFilters();
+      });
+    }
+
+    // Price range slider
+    this.setupPriceSlider();
+  }
+
+  // Price range slider setup
+  setupPriceSlider() {
+    const minSlider = document.querySelector('.price-slider-min');
+    const maxSlider = document.querySelector('.price-slider-max');
+    const minInput = document.getElementById('filter-price-min');
+    const maxInput = document.getElementById('filter-price-max');
+
+    if (minSlider && maxSlider && minInput && maxInput) {
+      minSlider.addEventListener('input', (e) => {
+        minInput.value = e.target.value;
+        this.updatePriceDisplay();
+      });
+
+      maxSlider.addEventListener('input', (e) => {
+        maxInput.value = e.target.value;
+        this.updatePriceDisplay();
+      });
+
+      minInput.addEventListener('change', (e) => {
+        minSlider.value = e.target.value;
+        this.updatePriceDisplay();
+      });
+
+      maxInput.addEventListener('change', (e) => {
+        maxSlider.value = e.target.value;
+        this.updatePriceDisplay();
+      });
+    }
+  }
+
+  updatePriceDisplay() {
+    const minValue = document.querySelector('.price-slider-min').value;
+    const maxValue = document.querySelector('.price-slider-max').value;
+    
+    // Update any price display elements
+    const priceDisplay = document.querySelector('.price-values');
+    if (priceDisplay) {
+      priceDisplay.querySelector('.price-min').textContent = `$${minValue}`;
+      priceDisplay.querySelector('.price-max').textContent = `$${maxValue}`;
+    }
+  }
+
+  // Search functionality
+  setupSearch() {
+    const searchInput = document.querySelector('[data-search-input]');
+    const searchForm = document.querySelector('[data-search-form]');
+    const searchClear = document.querySelector('[data-search-clear]');
+
+    if (searchInput) {
+      // Debounced search
+      let searchTimeout;
+      searchInput.addEventListener('input', (e) => {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => {
+          this.performSearch(e.target.value);
+        }, 300);
+      });
+
+      // Clear search
+      if (searchClear) {
+        searchClear.addEventListener('click', () => {
+          searchInput.value = '';
+          searchInput.focus();
+          this.hideSearchResults();
+        });
+      }
+    }
+
+    if (searchForm) {
+      searchForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        this.submitSearch();
+      });
+    }
+  }
+
+  // Product card interactions
+  setupProductCards() {
+    document.addEventListener('mouseenter', (e) => {
+      const productCard = e.target.closest('[data-product-card]');
+      if (productCard) {
+        this.activateProductCard(productCard);
+      }
+    }, true);
+
+    document.addEventListener('mouseleave', (e) => {
+      const productCard = e.target.closest('[data-product-card]');
+      if (productCard) {
+        this.deactivateProductCard(productCard);
+      }
+    }, true);
+
+    // Quick view functionality
+    document.addEventListener('click', (e) => {
+      const quickViewBtn = e.target.closest('[data-quick-view]');
+      if (quickViewBtn) {
+        e.preventDefault();
+        this.showQuickView(quickViewBtn.dataset.quickView);
+      }
+    });
+  }
+
+  // Product card hover effects
+  activateProductCard(card) {
+    card.classList.add('product-card--active');
+    
+    // Add smooth transitions
+    const image = card.querySelector('.product-card__image');
+    const quickActions = card.querySelector('.product-card__quick-actions');
+    
+    if (image) {
+      image.style.transform = 'scale(1.05)';
+    }
+    
+    if (quickActions) {
+      quickActions.style.opacity = '1';
+      quickActions.style.visibility = 'visible';
+    }
+  }
+
+  deactivateProductCard(card) {
+    card.classList.remove('product-card--active');
+    
+    const image = card.querySelector('.product-card__image');
+    const quickActions = card.querySelector('.product-card__quick-actions');
+    
+    if (image) {
+      image.style.transform = 'scale(1)';
+    }
+    
+    if (quickActions) {
+      quickActions.style.opacity = '0';
+      quickActions.style.visibility = 'hidden';
+    }
+  }
+
+  // Quick view modal
+  showQuickView(productId) {
+    // Implement quick view modal logic
+    console.log('Quick view for product:', productId);
+    // This would typically fetch product data and show a modal
+  }
+
+  // Filter methods
+  toggleFilters() {
+    const filters = document.querySelector('[data-collection-filters]');
+    if (filters) {
+      filters.classList.toggle('filters--active');
+      document.body.classList.toggle('filters-open');
+    }
+  }
+
+  closeFilters() {
+    const filters = document.querySelector('[data-collection-filters]');
+    if (filters) {
+      filters.classList.remove('filters--active');
+      document.body.classList.remove('filters-open');
+    }
+  }
+
+  applyFilters() {
+    const selectedFilters = this.getSelectedFilters();
+    this.updateCollection(selectedFilters);
+    this.closeFilters();
+  }
+
+  clearFilters() {
+    // Clear all filter inputs
+    const filterInputs = document.querySelectorAll('[data-filter-type], [data-filter-vendor], [data-filter-tag], [data-filter-color], [data-filter-size], [data-filter-availability]');
+    filterInputs.forEach(input => {
+      input.checked = false;
+    });
+
+    // Clear price inputs
+    const minInput = document.getElementById('filter-price-min');
+    const maxInput = document.getElementById('filter-price-max');
+    const minSlider = document.querySelector('.price-slider-min');
+    const maxSlider = document.querySelector('.price-slider-max');
+
+    if (minInput && maxInput && minSlider && maxSlider) {
+      minInput.value = '0';
+      maxInput.value = '10000';
+      minSlider.value = '0';
+      maxSlider.value = '10000';
+    }
+
+    this.updateCollection({});
+  }
+
+  getSelectedFilters() {
+    const filters = {};
+
+    // Get price range
+    const minPrice = document.getElementById('filter-price-min')?.value || '0';
+    const maxPrice = document.getElementById('filter-price-max')?.value || '10000';
+    filters.price = { min: minPrice, max: maxPrice };
+
+    // Get availability
+    const availabilityFilters = document.querySelectorAll('[data-filter-availability]:checked');
+    if (availabilityFilters.length > 0) {
+      filters.availability = Array.from(availabilityFilters).map(input => input.value);
+    }
+
+    // Get other filters
+    ['type', 'vendor', 'tag', 'color', 'size'].forEach(filterType => {
+      const selected = document.querySelectorAll(`[data-filter-${filterType}]:checked`);
+      if (selected.length > 0) {
+        filters[filterType] = Array.from(selected).map(input => input.value);
+      }
+    });
+
+    return filters;
+  }
+
+  updateCollection(filters) {
+    // Build URL with filters
+    let url = window.location.pathname;
+    const params = new URLSearchParams();
+
+    // Add sort parameter if exists
+    const sortSelect = document.getElementById('SortBy');
+    if (sortSelect && sortSelect.value) {
+      params.set('sort_by', sortSelect.value);
+    }
+
+    // Add filter parameters
+    Object.keys(filters).forEach(key => {
+      if (Array.isArray(filters[key])) {
+        filters[key].forEach(value => {
+          params.append(key, value);
+        });
+      } else if (typeof filters[key] === 'object') {
+        // Handle price range
+        if (filters[key].min && filters[key].max) {
+          params.set('filter.v.price.gte', filters[key].min);
+          params.set('filter.v.price.lte', filters[key].max);
+        }
+      }
+    });
+
+    // Update URL and reload
+    if (params.toString()) {
+      url += '?' + params.toString();
+    }
+
+    // Use AJAX for smooth filtering (would need additional implementation)
+    window.location.href = url;
+  }
+
+  removeFilter(filterValue) {
+    // Remove specific filter from URL and reload
+    const urlParams = new URLSearchParams(window.location.search);
+    
+    // Remove the filter parameter
+    urlParams.delete(filterValue);
+    
+    // Build new URL
+    let newUrl = window.location.pathname;
+    if (urlParams.toString()) {
+      newUrl += '?' + urlParams.toString();
+    }
+    
+    window.location.href = newUrl;
+  }
+
+  handleSortChange(sortValue) {
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.set('sort_by', sortValue);
+    
+    let newUrl = window.location.pathname;
+    if (urlParams.toString()) {
+      newUrl += '?' + urlParams.toString();
+    }
+    
+    window.location.href = newUrl;
+  }
+
+  // Search methods
+  performSearch(query) {
+    if (query.length < 2) {
+      this.hideSearchResults();
+      return;
+    }
+
+    this.showSearchLoading();
+
+    // Simulate API call (in real implementation, this would be an AJAX request)
+    setTimeout(() => {
+      this.hideSearchLoading();
+      this.showSearchResults(query);
+    }, 500);
+  }
+
+  submitSearch() {
+    const searchInput = document.querySelector('[data-search-input]');
+    if (searchInput && searchInput.value.trim()) {
+      // Form will submit naturally
+      return true;
+    }
+    return false;
+  }
+
+  showSearchLoading() {
+    const loading = document.querySelector('[data-search-loading]');
+    const results = document.querySelector('[data-search-results]');
+    const suggestions = document.querySelector('[data-search-suggestions]');
+    
+    if (loading) loading.style.display = 'block';
+    if (results) results.style.display = 'none';
+    if (suggestions) suggestions.style.display = 'none';
+  }
+
+  hideSearchLoading() {
+    const loading = document.querySelector('[data-search-loading]');
+    if (loading) loading.style.display = 'none';
+  }
+
+  showSearchResults(query) {
+    const results = document.querySelector('[data-search-results]');
+    const resultsContent = document.querySelector('[data-results-content]');
+    const suggestions = document.querySelector('[data-search-suggestions]');
+    
+    if (results && resultsContent) {
+      // In real implementation, this would populate with actual search results
+      resultsContent.innerHTML = `
+        <div class="search-result-item">
+          <p class="result-text text-secondary text-sm">Showing results for "${query}"</p>
+        </div>
+      `;
+      
+      results.style.display = 'block';
+      if (suggestions) suggestions.style.display = 'none';
+    }
+  }
+
+  hideSearchResults() {
+    const results = document.querySelector('[data-search-results]');
+    const suggestions = document.querySelector('[data-search-suggestions]');
+    
+    if (results) results.style.display = 'none';
+    if (suggestions) suggestions.style.display = 'block';
+  }
+}
+
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+  if (document.querySelector('.collection-page')) {
+    new CollectionManager();
+  }
+});

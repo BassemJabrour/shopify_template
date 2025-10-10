@@ -1,0 +1,122 @@
+<!-- Product Info Component - Luxury Women's Clothing -->
+<div class="product-info" data-product-info>
+  <!-- Product Title -->
+  <h1 class="product-title" data-product-title>{{ product.title }}</h1>
+
+  <!-- Product Vendor -->
+  {% if product.vendor != blank %}
+    <p class="product-vendor">
+      <span class="vendor-label">By</span>
+      <span class="vendor-name">{{ product.vendor }}</span>
+    </p>
+  {% endif %}
+
+  <!-- Product Price -->
+  <div class="product-price-container" data-product-price-container>
+    {% if product.compare_at_price > product.price %}
+      <div class="price-sale">
+        <span class="price-current" data-price-current>{{ product.price | money }}</span>
+        <span class="price-original" data-price-original>{{ product.compare_at_price | money }}</span>
+        <span class="price-savings" data-price-savings>
+          Save {{ product.compare_at_price | minus: product.price | money }}
+        </span>
+      </div>
+    {% else %}
+      <div class="price-regular">
+        <span class="price-current" data-price-current>{{ product.price | money }}</span>
+      </div>
+    {% endif %}
+  </div>
+
+  <!-- Product Rating -->
+  {% if product.metafields.reviews.rating.value != blank %}
+    <div class="product-rating">
+      <div class="rating-stars" data-rating-stars>
+        {% assign rating = product.metafields.reviews.rating.value.rating | round %}
+        {% for i in (1..5) %}
+          {% if i <= rating %}
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="var(--color-gold)" class="rating-star rating-star--filled">
+              <path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0l-2.81 6.63L0 7.24l5.46 4.73L3.82 19z"/>
+            </svg>
+          {% else %}
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="var(--color-gray-300)" class="rating-star rating-star--empty">
+              <path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0l-2.81 6.63L0 7.24l5.46 4.73L3.82 19z"/>
+            </svg>
+          {% endif %}
+        {% endfor %}
+      </div>
+      <span class="rating-value" data-rating-value>
+        {{ product.metafields.reviews.rating.value.rating | round: 1 }}
+        ({{ product.metafields.reviews.rating_count }} reviews)
+      </span>
+    </div>
+  {% else %}
+    <div class="product-rating product-rating--placeholder">
+      <div class="rating-stars">
+        {% for i in (1..5) %}
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="var(--color-gray-300)" class="rating-star">
+            <path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0l-2.81 6.63L0 7.24l5.46 4.73L3.82 19z"/>
+          </svg>
+        {% endfor %}
+      </div>
+      <span class="rating-value">Be the first to review</span>
+    </div>
+  {% endif %}
+
+  <!-- Product Description Excerpt -->
+  {% if product.description != blank %}
+    <div class="product-description-excerpt">
+      <div class="description-content" data-description-content>
+        {{ product.description | truncate: 200 }}
+      </div>
+      <button class="description-toggle" data-description-toggle>
+        <span class="toggle-text">Read More</span>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+  {% endif %}
+
+  <!-- Product Badges -->
+  <div class="product-badges">
+    {% if product.compare_at_price > product.price %}
+      <span class="product-badge product-badge--sale">Sale</span>
+    {% endif %}
+    
+    {% if product.tags contains 'new' %}
+      <span class="product-badge product-badge--new">New Arrival</span>
+    {% endif %}
+    
+    {% if product.tags contains 'bestseller' %}
+      <span class="product-badge product-badge--bestseller">Bestseller</span>
+    {% endif %}
+    
+    {% if product.tags contains 'limited' %}
+      <span class="product-badge product-badge--limited">Limited Edition</span>
+    {% endif %}
+    
+    {% if product.tags contains 'exclusive' %}
+      <span class="product-badge product-badge--exclusive">Exclusive</span>
+    {% endif %}
+  </div>
+
+  <!-- Availability Status -->
+  <div class="availability-status" data-availability-status>
+    {% if product.available %}
+      <div class="status-available">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M13.333 4L6 11.333L2.667 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>In Stock</span>
+      </div>
+    {% else %}
+      <div class="status-sold-out">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Sold Out</span>
+      </div>
+    {% endif %}
+  </div>
+</div>

@@ -1,0 +1,128 @@
+<!-- Product Gallery Component - Luxury Women's Clothing -->
+<div class="product-gallery" data-product-gallery>
+  <!-- Main Image Display -->
+  <div class="gallery-main">
+    <div class="main-image-container" data-main-image-container>
+      {% if product.featured_image %}
+        {{ product.featured_image | image_url: width: 800, height: 1000 | image_tag: 
+          alt: product.featured_image.alt,
+          class: 'main-image',
+          data: {
+            'zoom-image': product.featured_image | image_url: width: 1600
+          }
+        }}
+      {% else %}
+        <div class="main-image-placeholder">
+          <svg width="800" height="1000" viewBox="0 0 800 1000" fill="none">
+            <rect width="800" height="1000" fill="var(--color-gray-200)"/>
+            <path d="M400 500L300 400L500 600" stroke="var(--color-gray-400)" stroke-width="3"/>
+          </svg>
+        </div>
+      {% endif %}
+
+      <!-- Zoom Controls -->
+      <div class="zoom-controls" data-zoom-controls>
+        <button class="zoom-btn zoom-in" data-zoom-in>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M10 4V16M4 10H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <button class="zoom-btn zoom-out" data-zoom-out>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M4 10H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Navigation Arrows -->
+      <button class="nav-arrow nav-arrow--prev" data-nav-prev>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <button class="nav-arrow nav-arrow--next" data-nav-next>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Image Counter -->
+    <div class="image-counter" data-image-counter>
+      <span class="current-image" data-current-image>1</span>
+      <span class="counter-separator">/</span>
+      <span class="total-images" data-total-images>{{ product.images.size }}</span>
+    </div>
+  </div>
+
+  <!-- Thumbnail Navigation -->
+  {% if product.images.size > 1 %}
+    <div class="gallery-thumbnails" data-gallery-thumbnails>
+      <div class="thumbnails-container" data-thumbnails-container>
+        {% for image in product.images %}
+          <button class="thumbnail-btn {% if forloop.first %}thumbnail-btn--active{% endif %}" 
+                  data-thumbnail data-image-index="{{ forloop.index0 }}"
+                  data-image-src="{{ image | image_url: width: 800 }}"
+                  data-zoom-src="{{ image | image_url: width: 1600 }}">
+            {{ image | image_url: width: 100, height: 125 | image_tag: 
+              alt: image.alt,
+              class: 'thumbnail-image'
+            }}
+          </button>
+        {% endfor %}
+      </div>
+
+      <!-- Thumbnail Navigation Controls -->
+      <button class="thumbnail-nav thumbnail-nav--prev" data-thumbnail-prev>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <button class="thumbnail-nav thumbnail-nav--next" data-thumbnail-next>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+  {% endif %}
+
+  <!-- Lightbox Overlay -->
+  <div class="lightbox-overlay" data-lightbox-overlay>
+    <div class="lightbox-content" data-lightbox-content>
+      <button class="lightbox-close" data-lightbox-close>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z" fill="currentColor"/>
+        </svg>
+      </button>
+
+      <div class="lightbox-image-container" data-lightbox-image-container>
+        {% if product.featured_image %}
+          {{ product.featured_image | image_url: width: 1200 | image_tag: 
+            alt: product.featured_image.alt,
+            class: 'lightbox-image',
+            data: {
+              'lightbox-image': true
+            }
+          }}
+        {% endif %}
+
+        <button class="lightbox-nav lightbox-nav--prev" data-lightbox-prev>
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <path d="M20 24L12 16L20 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <button class="lightbox-nav lightbox-nav--next" data-lightbox-next>
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <path d="M12 24L20 16L12 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="lightbox-counter" data-lightbox-counter>
+        <span class="current-image" data-lightbox-current>1</span>
+        <span class="counter-separator">/</span>
+        <span class="total-images" data-lightbox-total>{{ product.images.size }}</span>
+      </div>
+    </div>
+  </div>
+</div>

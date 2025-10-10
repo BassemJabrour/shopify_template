@@ -1,0 +1,214 @@
+<!-- Main Product Section - Luxury Women's Clothing -->
+<div class="product-page" data-product-section data-product-id="{{ product.id }}">
+  <!-- Breadcrumb Navigation -->
+  <nav class="product-breadcrumb" aria-label="Breadcrumb">
+    <ol class="breadcrumb-list">
+      <li class="breadcrumb-item">
+        <a href="/" class="breadcrumb-link">Home</a>
+      </li>
+      {% if collection %}
+        <li class="breadcrumb-item">
+          <a href="{{ collection.url }}" class="breadcrumb-link">{{ collection.title }}</a>
+        </li>
+      {% endif %}
+      <li class="breadcrumb-item breadcrumb-item--current">
+        <span class="breadcrumb-text">{{ product.title }}</span>
+      </li>
+    </ol>
+  </nav>
+
+  <!-- Product Layout -->
+  <div class="product-layout">
+    <!-- Product Gallery -->
+    <div class="product-gallery-container">
+      {% render 'product-gallery', product: product %}
+    </div>
+
+    <!-- Product Information -->
+    <div class="product-info-container">
+      {% render 'product-info', product: product %}
+      
+      <!-- Variant Selection -->
+      {% render 'variant-picker', product: product %}
+      
+      <!-- Add to Cart Form -->
+      {% render 'product-form', product: product %}
+      
+      <!-- Product Metadata -->
+      <div class="product-metadata">
+        <!-- SKU -->
+        {% if product.selected_or_first_available_variant.sku != blank %}
+          <div class="metadata-item">
+            <span class="metadata-label">SKU:</span>
+            <span class="metadata-value">{{ product.selected_or_first_available_variant.sku }}</span>
+          </div>
+        {% endif %}
+
+        <!-- Vendor -->
+        {% if product.vendor != blank %}
+          <div class="metadata-item">
+            <span class="metadata-label">Brand:</span>
+            <span class="metadata-value">{{ product.vendor }}</span>
+          </div>
+        {% endif %}
+
+        <!-- Type -->
+        {% if product.type != blank %}
+          <div class="metadata-item">
+            <span class="metadata-label">Type:</span>
+            <span class="metadata-value">{{ product.type }}</span>
+          </div>
+        {% endif %}
+
+        <!-- Tags -->
+        {% if product.tags.size > 0 %}
+          <div class="metadata-item">
+            <span class="metadata-label">Tags:</span>
+            <span class="metadata-value">{{ product.tags | join: ', ' }}</span>
+          </div>
+        {% endif %}
+      </div>
+
+      <!-- Trust Signals -->
+      <div class="trust-signals">
+        <!-- Shipping Info -->
+        <div class="trust-signal">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="trust-icon">
+            <path d="M12 1L3 5V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V5L12 1ZM12 11.99H19C18.47 16.11 15.72 19.78 12 20.93V12H5V6.3L12 3.19V11.99Z" fill="currentColor"/>
+          </svg>
+          <div class="trust-content">
+            <span class="trust-title">Free Shipping</span>
+            <span class="trust-description">On orders over $200</span>
+          </div>
+        </div>
+
+        <!-- Returns -->
+        <div class="trust-signal">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="trust-icon">
+            <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4C7.58 4 4.01 7.58 4.01 12C4.01 16.42 7.58 20 12 20C15.73 20 18.84 17.45 19.73 14H17.65C16.83 16.33 14.61 18 12 18C8.69 18 6 15.31 6 12C6 8.69 8.69 6 12 6C13.66 6 15.14 6.69 16.22 7.78L13 11H20V4L17.65 6.35Z" fill="currentColor"/>
+          </svg>
+          <div class="trust-content">
+            <span class="trust-title">Easy Returns</span>
+            <span class="trust-description">30-day return policy</span>
+          </div>
+        </div>
+
+        <!-- Secure Payment -->
+        <div class="trust-signal">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="trust-icon">
+            <path d="M20 4H4C2.89 4 2.01 4.89 2.01 6L2 18C2 19.11 2.89 20 4 20H20C21.11 20 22 19.11 22 18V6C22 4.89 21.11 4 20 4ZM20 18H4V12H20V18ZM20 8H4V6H20V8Z" fill="currentColor"/>
+          </svg>
+          <div class="trust-content">
+            <span class="trust-title">Secure Payment</span>
+            <span class="trust-description">Your data is protected</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Product Description & Details -->
+  <div class="product-details-section">
+    <!-- Product Description -->
+    <div class="product-description">
+      <h2 class="section-title">Product Details</h2>
+      <div class="description-content">
+        {{ product.description }}
+      </div>
+    </div>
+
+    <!-- Size Guide -->
+    <div class="size-guide-section">
+      <button class="size-guide-toggle" data-size-guide-toggle>
+        <span>Size Guide</span>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      
+      <!-- Size Guide Modal -->
+      <div class="size-guide-modal" data-size-guide-modal>
+        <div class="modal-content">
+          <button class="modal-close" data-size-guide-close>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z" fill="currentColor"/>
+            </svg>
+          </button>
+          
+          <h3 class="modal-title">Size Guide</h3>
+          
+          <div class="size-table-container">
+            <table class="size-table">
+              <thead>
+                <tr>
+                  <th>Size</th>
+                  <th>Bust</th>
+                  <th>Waist</th>
+                  <th>Hips</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>XS</td>
+                  <td>32-33"</td>
+                  <td>24-25"</td>
+                  <td>34-35"</td>
+                </tr>
+                <tr>
+                  <td>S</td>
+                  <td>34-35"</td>
+                  <td>26-27"</td>
+                  <td>36-37"</td>
+                </tr>
+                <tr>
+                  <td>M</td>
+                  <td>36-37"</td>
+                  <td>28-29"</td>
+                  <td>38-39"</td>
+                </tr>
+                <tr>
+                  <td>L</td>
+                  <td>38-39"</td>
+                  <td>30-31"</td>
+                  <td>40-41"</td>
+                </tr>
+                <tr>
+                  <td>XL</td>
+                  <td>40-41"</td>
+                  <td>32-33"</td>
+                  <td>42-43"</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <div class="size-guide-note">
+            <p><strong>Note:</strong> Measurements are in inches. Please refer to our detailed sizing guide for international conversions.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Customer Reviews Placeholder -->
+    <div class="reviews-section">
+      <h2 class="section-title">Customer Reviews</h2>
+      <div class="reviews-placeholder">
+        <p>Reviews will be integrated here when available.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Related Products -->
+  <div class="related-products-section">
+    <h2 class="section-title">You May Also Like</h2>
+    <div class="related-products-grid" data-related-products>
+      {% comment %}
+        This section will be populated with related products
+        using Shopify's recommendations or manual selection
+      {% endcomment %}
+      <div class="related-products-placeholder">
+        <p>Related products will be displayed here.</p>
+      </div>
+    </div>
+  </div>
+</div>

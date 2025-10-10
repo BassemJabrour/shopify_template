@@ -1,0 +1,101 @@
+<!-- Search Component - Luxury Search Functionality -->
+<div class="search-component" data-search-component>
+  <!-- Search Form -->
+  <form action="/search" method="get" role="search" class="search-form" data-search-form>
+    <div class="search-input-container">
+      <!-- Search Icon -->
+      <div class="search-icon">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M19 19L13 13M15 8C15 11.866 11.866 15 8 15C4.13401 15 1 11.866 1 8C1 4.13401 4.13401 1 8 1C11.866 1 15 4.13401 15 8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      
+      <!-- Search Input -->
+      <input type="search" 
+             name="q" 
+             value="{{ search.terms | escape }}" 
+             placeholder="Search luxury fashion..." 
+             class="search-input" 
+             data-search-input
+             aria-label="Search products">
+      
+      <!-- Clear Search -->
+      {% if search.terms != blank %}
+        <button type="reset" class="search-clear" data-search-clear aria-label="Clear search">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      {% endif %}
+      
+      <!-- Search Type (Hidden) -->
+      <input type="hidden" name="type" value="product">
+    </div>
+    
+    <!-- Search Submit -->
+    <button type="submit" class="search-submit btn-primary" aria-label="Search">
+      Search
+    </button>
+  </form>
+
+  <!-- Search Results (Live Preview) -->
+  <div class="search-results" data-search-results style="display: none;">
+    <div class="search-results-header">
+      <h4 class="results-title text-primary text-lg text-semibold">Search Results</h4>
+      <button class="results-close" data-results-close aria-label="Close results">×</button>
+    </div>
+    
+    <div class="search-results-content" data-results-content>
+      <!-- Results will be populated via JavaScript -->
+    </div>
+    
+    <div class="search-results-footer">
+      <a href="/search?q={{ search.terms | escape }}&type=product" class="view-all-results btn-secondary">
+        View All Results
+      </a>
+    </div>
+  </div>
+
+  <!-- Search Suggestions -->
+  <div class="search-suggestions" data-search-suggestions style="display: none;">
+    <h5 class="suggestions-title text-secondary text-sm text-medium">Popular Searches</h5>
+    <ul class="suggestions-list">
+      <li class="suggestion-item">
+        <a href="/search?q=dresses&type=product" class="suggestion-link text-secondary text-sm">Dresses</a>
+      </li>
+      <li class="suggestion-item">
+        <a href="/search?q=handbags&type=product" class="suggestion-link text-secondary text-sm">Handbags</a>
+      </li>
+      <li class="suggestion-item">
+        <a href="/search?q=shoes&type=product" class="suggestion-link text-secondary text-sm">Shoes</a>
+      </li>
+      <li class="suggestion-item">
+        <a href="/search?q=accessories&type=product" class="suggestion-link text-secondary text-sm">Accessories</a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Search Loading State -->
+  <div class="search-loading" data-search-loading style="display: none;">
+    <div class="loading-spinner">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M12 2V6M12 18V22M4.93 4.93L7.76 7.76M16.24 16.24L19.07 19.07M2 12H6M18 12H22M4.93 19.07L7.76 16.24M16.24 7.76L19.07 4.93" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <p class="loading-text text-secondary text-sm">Searching...</p>
+  </div>
+
+  <!-- Search Empty State -->
+  <div class="search-empty" data-search-empty style="display: none;">
+    <div class="empty-icon">
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+        <path d="M24 44C35.0457 44 44 35.0457 44 24C44 12.9543 35.0457 4 24 4C12.9543 4 4 12.9543 4 24C4 35.0457 12.9543 44 24 44Z" stroke="var(--color-gray-300)" stroke-width="2"/>
+        <path d="M24 16V24M24 32H24.02" stroke="var(--color-gray-300)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <h5 class="empty-title text-primary text-lg text-semibold">No results found</h5>
+    <p class="empty-description text-secondary text-sm">
+      Try different keywords or browse our categories
+    </p>
+  </div>
+</div>

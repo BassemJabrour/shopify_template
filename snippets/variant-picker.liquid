@@ -1,0 +1,150 @@
+<!-- Variant Picker Component - Luxury Women's Clothing -->
+<div class="variant-picker" data-variant-picker>
+  {% unless product.has_only_default_variant %}
+    {% for option in product.options_with_values %}
+      <div class="variant-option" data-variant-option data-option-index="{{ forloop.index0 }}">
+        <!-- Option Label -->
+        <label class="option-label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
+          {{ option.name }}:
+          <span class="option-selected-value" data-selected-value>{{ option.selected_value }}</span>
+        </label>
+
+        <!-- Option Values -->
+        <div class="option-values" data-option-values>
+          {% for value in option.values %}
+            {% assign option_disabled = true %}
+            
+            {% for variant in product.variants %}
+              {% if variant.options[forloop.parentloop.index0] == value and variant.available %}
+                {% assign option_disabled = false %}
+                {% break %}
+              {% endif %}
+            {% endfor %}
+
+            {% if option.name == 'Color' %}
+              <!-- Color Swatches -->
+              <input type="radio" 
+                     id="{{ section.id }}-{{ option.name }}-{{ forloop.index0 }}"
+                     name="options[{{ option.name | escape }}]"
+                     value="{{ value | escape }}"
+                     {% if option.selected_value == value %}checked{% endif %}
+                     {% if option_disabled %}disabled{% endif %}
+                     class="option-input option-input--color"
+                     data-option-input>
+              
+              <label for="{{ section.id }}-{{ option.name }}-{{ forloop.index0 }}"
+                     class="option-swatch option-swatch--color {% if option_disabled %}option-swatch--disabled{% endif %}"
+                     data-option-swatch
+                     data-value="{{ value | escape }}"
+                     title="{{ value | escape }}">
+                <span class="swatch-color" style="background-color: {{ value | handle | replace: '-', '' }};"></span>
+                <span class="swatch-label">{{ value }}</span>
+              </label>
+
+            {% elsif option.name == 'Size' %}
+              <!-- Size Buttons -->
+              <input type="radio" 
+                     id="{{ section.id }}-{{ option.name }}-{{ forloop.index0 }}"
+                     name="options[{{ option.name | escape }}]"
+                     value="{{ value | escape }}"
+                     {% if option.selected_value == value %}checked{% endif %}
+                     {% if option_disabled %}disabled{% endif %}
+                     class="option-input option-input--size"
+                     data-option-input>
+              
+              <label for="{{ section.id }}-{{ option.name }}-{{ forloop.index0 }}"
+                     class="option-button option-button--size {% if option_disabled %}option-button--disabled{% endif %}"
+                     data-option-button
+                     data-value="{{ value | escape }}">
+                {{ value }}
+                {% if option_disabled %}
+                  <span class="size-sold-out">Sold Out</span>
+                {% endif %}
+              </label>
+
+            {% else %}
+              <!-- Standard Radio Buttons -->
+              <input type="radio" 
+                     id="{{ section.id }}-{{ option.name }}-{{ forloop.index0 }}"
+                     name="options[{{ option.name | escape }}]"
+                     value="{{ value | escape }}"
+                     {% if option.selected_value == value %}checked{% endif %}
+                     {% if option_disabled %}disabled{% endif %}
+                     class="option-input option-input--standard"
+                     data-option-input>
+              
+              <label for="{{ section.id }}-{{ option.name }}-{{ forloop.index0 }}"
+                     class="option-button option-button--standard {% if option_disabled %}option-button--disabled{% endif %}"
+                     data-option-button
+                     data-value="{{ value | escape }}">
+                {{ value }}
+              </label>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    {% endfor %}
+  {% endunless %}
+
+  <!-- Variant Selection Summary -->
+  <div class="variant-summary" data-variant-summary>
+    <div class="summary-item summary-item--price" data-summary-price>
+      <span class="summary-label">Price:</span>
+      <span class="summary-value" data-price-value>{{ product.price | money }}</span>
+    </div>
+    
+    <div class="summary-item summary-item--availability" data-summary-availability>
+      <span class="summary-label">Availability:</span>
+      <span class="summary-value" data-availability-value>
+        {% if product.available %}
+          In Stock
+        {% else %}
+          Sold Out
+        {% endif %}
+      </span>
+    </div>
+    
+    {% if product.selected_or_first_available_variant.sku != blank %}
+      <div class="summary-item summary-item--sku" data-summary-sku>
+        <span class="summary-label">SKU:</span>
+        <span class="summary-value" data-sku-value>{{ product.selected_or_first_available_variant.sku }}</span>
+      </div>
+    {% endif %}
+  </div>
+
+  <!-- Quantity Selector -->
+  <div class="quantity-selector" data-quantity-selector>
+    <label class="quantity-label" for="Quantity-{{ section.id }}">Quantity:</label>
+    <div class="quantity-controls">
+      <button type="button" class="quantity-btn quantity-btn--decrease" data-quantity-decrease>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M4 8H12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+      
+      <input type="number" 
+             id="Quantity-{{ section.id }}"
+             name="quantity"
+             value="1"
+             min="1"
+             class="quantity-input"
+             data-quantity-input>
+      
+      <button type="button" class="quantity-btn quantity-btn--increase" data-quantity-increase>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M8 4V12M4 8H12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Variant Change Notice -->
+  <div class="variant-notice" data-variant-notice>
+    <div class="notice-content" data-notice-content>
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M8 12V8M8 4H8.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <span class="notice-text" data-notice-text>Please select all options</span>
+    </div>
+  </div>
+</div>

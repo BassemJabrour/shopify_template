@@ -1,0 +1,166 @@
+<!-- Filter Component - Luxury Collection Filtering -->
+<div class="filter-component" data-filter-component>
+  <div class="filter-header">
+    <h3 class="filter-title text-primary text-xl text-semibold">Filters</h3>
+    <button class="filter-close-btn" data-filter-close>
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="filter-content">
+    <!-- Price Range Filter -->
+    <div class="filter-section">
+      <h4 class="filter-section-title text-secondary text-base text-medium">Price Range</h4>
+      
+      <div class="price-range-filter">
+        <div class="price-inputs">
+          <div class="price-input-group">
+            <label for="filter-price-min" class="price-label text-secondary text-sm">Min</label>
+            <input type="number" id="filter-price-min" class="price-input" 
+                   min="0" max="10000" step="10" placeholder="0">
+          </div>
+          
+          <div class="price-input-group">
+            <label for="filter-price-max" class="price-label text-secondary text-sm">Max</label>
+            <input type="number" id="filter-price-max" class="price-input" 
+                   min="0" max="10000" step="10" placeholder="1000">
+          </div>
+        </div>
+        
+        <div class="price-slider-container">
+          <div class="price-slider-track"></div>
+          <input type="range" class="price-slider price-slider-min" 
+                 min="0" max="10000" value="0" step="10">
+          <input type="range" class="price-slider price-slider-max" 
+                 min="0" max="10000" value="10000" step="10">
+        </div>
+      </div>
+    </div>
+
+    <!-- Availability Filter -->
+    <div class="filter-section">
+      <h4 class="filter-section-title text-secondary text-base text-medium">Availability</h4>
+      
+      <div class="availability-filters">
+        <label class="filter-checkbox">
+          <input type="checkbox" name="availability" value="in-stock" data-filter-availability>
+          <span class="checkbox-custom"></span>
+          <span class="filter-label text-secondary text-sm">In Stock</span>
+        </label>
+        
+        <label class="filter-checkbox">
+          <input type="checkbox" name="availability" value="out-of-stock" data-filter-availability>
+          <span class="checkbox-custom"></span>
+          <span class="filter-label text-secondary text-sm">Out of Stock</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Product Type Filter -->
+    {% if collection.all_types.size > 0 %}
+      <div class="filter-section">
+        <h4 class="filter-section-title text-secondary text-base text-medium">Product Type</h4>
+        
+        <div class="type-filters">
+          {% for type in collection.all_types %}
+            <label class="filter-checkbox">
+              <input type="checkbox" name="product_type" value="{{ type | handle }}" 
+                     data-filter-type>
+              <span class="checkbox-custom"></span>
+              <span class="filter-label text-secondary text-sm">{{ type }}</span>
+            </label>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+
+    <!-- Vendor Filter -->
+    {% if collection.all_vendors.size > 0 %}
+      <div class="filter-section">
+        <h4 class="filter-section-title text-secondary text-base text-medium">Brand</h4>
+        
+        <div class="vendor-filters">
+          {% for vendor in collection.all_vendors %}
+            <label class="filter-checkbox">
+              <input type="checkbox" name="vendor" value="{{ vendor | handle }}" 
+                     data-filter-vendor>
+              <span class="checkbox-custom"></span>
+              <span class="filter-label text-secondary text-sm">{{ vendor }}</span>
+            </label>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+
+    <!-- Tag Filter -->
+    {% if collection.all_tags.size > 0 %}
+      <div class="filter-section">
+        <h4 class="filter-section-title text-secondary text-base text-medium">Tags</h4>
+        
+        <div class="tag-filters">
+          {% for tag in collection.all_tags %}
+            {% unless tag contains 'filter_' %}
+              <label class="filter-checkbox">
+                <input type="checkbox" name="tag" value="{{ tag | handle }}" 
+                       {% if current_tags contains tag %}checked{% endif %}
+                       data-filter-tag>
+                <span class="checkbox-custom"></span>
+                <span class="filter-label text-secondary text-sm">{{ tag }}</span>
+              </label>
+            {% endunless %}
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+
+    <!-- Color Filter -->
+    {% assign color_tags = collection.all_tags | where: 'color' %}
+    {% if color_tags.size > 0 %}
+      <div class="filter-section">
+        <h4 class="filter-section-title text-secondary text-base text-medium">Color</h4>
+        
+        <div class="color-filters">
+          {% for tag in color_tags %}
+            <label class="color-filter-label">
+              <input type="checkbox" name="color" value="{{ tag | handle }}" 
+                     data-filter-color>
+              <span class="color-swatch" style="background-color: {{ tag | remove: 'color_' }}"></span>
+              <span class="filter-label text-secondary text-sm">{{ tag | remove: 'color_' | capitalize }}</span>
+            </label>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+
+    <!-- Size Filter -->
+    {% assign size_tags = collection.all_tags | where: 'size' %}
+    {% if size_tags.size > 0 %}
+      <div class="filter-section">
+        <h4 class="filter-section-title text-secondary text-base text-medium">Size</h4>
+        
+        <div class="size-filters">
+          {% for tag in size_tags %}
+            <label class="size-filter-label">
+              <input type="checkbox" name="size" value="{{ tag | handle }}" 
+                     data-filter-size>
+              <span class="size-chip">{{ tag | remove: 'size_' | upcase }}</span>
+            </label>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+
+  <!-- Filter Actions -->
+  <div class="filter-actions">
+    <button class="filter-apply-btn btn-primary" data-filter-apply>
+      Apply Filters
+    </button>
+    
+    <button class="filter-clear-btn btn-secondary" data-filter-clear>
+      Clear All
+    </button>
+  </div>
+</div>
