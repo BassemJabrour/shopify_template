@@ -1,0 +1,138 @@
+<!-- snippets/cart-item.liquid -->
+<div class="cart-item" data-item-key="{{ item.key }}" data-variant-id="{{ item.variant_id }}">
+  <div class="cart-item__container">
+    <!-- Product Image -->
+    <div class="cart-item__image">
+      <a href="{{ item.url }}" aria-label="{{ item.product.title }}">
+        {%- if item.image -%}
+          {{ item.image | image_url: width: 120, height: 120, crop: 'center' | image_tag: 
+            alt: item.image.alt | default: item.product.title, 
+            class: 'cart-item__image-img',
+            loading: 'lazy'
+          }}
+        {%- else -%}
+          <div class="cart-item__image-placeholder">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+              <rect width="40" height="40" fill="var(--color-gray-200)" rx="4"/>
+              <path d="M20 15V25M15 20H25" stroke="var(--color-gray-500)" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+        {%- endif -%}
+      </a>
+    </div>
+    
+    <!-- Product Details -->
+    <div class="cart-item__details">
+      <div class="cart-item__info">
+        <a href="{{ item.url }}" class="cart-item__title">{{ item.product.title }}</a>
+        
+        {%- unless item.variant.title contains 'Default' -%}
+          <p class="cart-item__variant">{{ item.variant.title }}</p>
+        {%- endunless -%}
+        
+        {%- if item.selling_plan_allocation -%}
+          <p class="cart-item__selling-plan">{{ item.selling_plan_allocation.selling_plan.name }}</p>
+        {%- endif -%}
+        
+        <!-- Product Properties -->
+        {%- if item.properties.size > 0 -%}
+          <div class="cart-item__properties">
+            {%- for property in item.properties -%}
+              {%- unless property.last == blank -%}
+                <div class="cart-item__property">
+                  <span class="cart-item__property-name">{{ property.first }}:</span>
+                  <span class="cart-item__property-value">
+                    {%- if property.last contains '/uploads/' -%}
+                      <a href="{{ property.last }}" target="_blank">{{ property.last | split: '/' | last }}</a>
+                    {%- else -%}
+                      {{ property.last }}
+                    {%- endif -%}
+                  </span>
+                </div>
+              {%- endunless -%}
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+        
+        <!-- Line Price -->
+        <div class="cart-item__price">
+          {%- if item.original_line_price != item.final_line_price -%}
+            <span class="cart-item__original-price">{{ item.original_price | money }}</span>
+            <span class="cart-item__final-price">{{ item.final_price | money }}</span>
+          {%- else -%}
+            <span class="cart-item__final-price">{{ item.original_price | money }}</span>
+          {%- endif -%}
+          
+          {%- if item.unit_price_measurement -%}
+            <span class="cart-item__unit-price">
+              {{ item.unit_price | money }}/{{ item.unit_price_measurement.reference_value }}{{ item.unit_price_measurement.reference_unit }}
+            </span>
+          {%- endif -%}
+        </div>
+      </div>
+      
+      <!-- Quantity Controls & Remove -->
+      <div class="cart-item__controls">
+        <div class="cart-item__quantity">
+          <label for="updates_{{ item.key }}" class="cart-item__quantity-label">Quantity</label>
+          <div class="quantity-selector">
+            <button 
+              type="button" 
+              class="quantity-selector__btn quantity-selector__minus" 
+              data-action="decrement"
+              aria-label="Decrease quantity"
+            >
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                <path d="M2 6H10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </button>
+            
+            <input 
+              type="number" 
+              id="updates_{{ item.key }}"
+              name="updates[]" 
+              value="{{ item.quantity }}" 
+              min="0" 
+              class="quantity-selector__input"
+              data-item-key="{{ item.key }}"
+              aria-label="Quantity for {{ item.product.title }}"
+            >
+            
+            <button 
+              type="button" 
+              class="quantity-selector__btn quantity-selector__plus" 
+              data-action="increment"
+              aria-label="Increase quantity"
+            >
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                <path d="M6 2V10M2 6H10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+        
+        <!-- Remove Button -->
+        <button 
+          type="button" 
+          class="cart-item__remove" 
+          data-action="remove"
+          data-item-key="{{ item.key }}"
+          aria-label="Remove {{ item.product.title }} from cart"
+        >
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M4 4L12 12M4 12L12 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Loading State -->
+  <div class="cart-item__loading" style="display: none;">
+    <div class="cart-item__loading-spinner">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d="M10 1V4M10 16V19M3 10H1M19 10H16M4.5 4.5L2.5 2.5M15.5 15.5L17.5 17.5M4.5 15.5L2.5 17.5M15.5 4.5L17.5 2.5" stroke="var(--color-gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </div>
+</div>

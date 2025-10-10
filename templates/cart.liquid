@@ -1,0 +1,140 @@
+<!-- templates/cart.liquid -->
+<div class="cart-page" data-section-type="cart-template" data-section-id="{{ section.id }}">
+  {%- if cart.item_count > 0 -%}
+    <div class="cart-page__container">
+      <div class="cart-page__header">
+        <h1 class="cart-page__title">Your Shopping Bag</h1>
+        <p class="cart-page__item-count">{{ cart.item_count }} item{%- if cart.item_count > 1 -%}s{%- endif -%}</p>
+      </div>
+      
+      <div class="cart-page__content">
+        <!-- Cart Items Column -->
+        <div class="cart-page__items">
+          {%- for item in cart.items -%}
+            {% render 'cart-item', item: item %}
+          {%- endfor -%}
+          
+          <!-- Continue Shopping Button -->
+          <div class="cart-page__continue">
+            <a href="/collections/all" class="btn btn--outline">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" class="btn__icon">
+                <path d="M10 4L6 8L10 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Continue Shopping
+            </a>
+          </div>
+        </div>
+        
+        <!-- Cart Summary Column -->
+        <div class="cart-page__summary">
+          <div class="cart-summary">
+            <h3 class="cart-summary__title">Order Summary</h3>
+            
+            <div class="cart-summary__details">
+              <div class="cart-summary__row">
+                <span>Subtotal</span>
+                <span class="cart-summary__price">{{ cart.total_price | money }}</span>
+              </div>
+              
+              {%- if cart.total_discount > 0 -%}
+                <div class="cart-summary__row">
+                  <span>Discount</span>
+                  <span class="cart-summary__discount">-{{ cart.total_discount | money }}</span>
+                </div>
+              {%- endif -%}
+              
+              <!-- Shipping Estimate -->
+              <div class="cart-summary__row">
+                <span>Shipping</span>
+                <span class="cart-summary__shipping">Calculated at checkout</span>
+              </div>
+              
+              <!-- Tax Estimate -->
+              <div class="cart-summary__row">
+                <span>Tax</span>
+                <span class="cart-summary__tax">Calculated at checkout</span>
+              </div>
+              
+              <div class="cart-summary__divider"></div>
+              
+              <div class="cart-summary__row cart-summary__total">
+                <span>Total</span>
+                <span class="cart-summary__total-price">{{ cart.total_price | money }}</span>
+              </div>
+            </div>
+            
+            <!-- Discount Code Form -->
+            <div class="cart-summary__discount-form">
+              <form id="discount-form" class="discount-form">
+                <div class="discount-form__field">
+                  <input 
+                    type="text" 
+                    name="discount_code" 
+                    placeholder="Discount code" 
+                    class="discount-form__input"
+                    aria-label="Enter discount code"
+                  >
+                  <button type="submit" class="discount-form__button">Apply</button>
+                </div>
+              </form>
+              <div id="discount-message" class="discount-form__message"></div>
+            </div>
+            
+            <!-- Checkout Button -->
+            <div class="cart-summary__actions">
+              <button type="button" class="btn btn--primary btn--large" onclick="window.location.href='/checkout'">
+                Proceed to Checkout
+              </button>
+              
+              <!-- Trust Signals -->
+              <div class="cart-summary__trust">
+                <div class="trust-signals">
+                  <div class="trust-signal">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                      <path d="M10 18.3333C14.6024 18.3333 18.3333 14.6024 18.3333 10C18.3333 5.39763 14.6024 1.66667 10 1.66667C5.39763 1.66667 1.66667 5.39763 1.66667 10C1.66667 14.6024 5.39763 18.3333 10 18.3333Z" stroke="currentColor" stroke-width="2"/>
+                      <path d="M7.5 10L9.16667 11.6667L12.5 8.33333" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>Secure Payment</span>
+                  </div>
+                  <div class="trust-signal">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                      <path d="M10 1.66667L16.6667 5V10C16.6667 14.6024 13.6024 18.3333 10 18.3333C6.39763 18.3333 3.33333 14.6024 3.33333 10V5L10 1.66667Z" stroke="currentColor" stroke-width="2"/>
+                      <path d="M10 10.8333V7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M10 10.8333H10.0083" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>Free Returns</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {%- else -%}
+    <!-- Empty Cart State -->
+    <div class="cart-empty">
+      <div class="cart-empty__content">
+        <svg width="80" height="80" viewBox="0 0 80 80" fill="none" class="cart-empty__icon">
+          <path d="M26.6667 26.6667H53.3333L58.6667 40L70 60H10L21.3333 40M26.6667 26.6667L21.3333 40M26.6667 26.6667V20C26.6667 16.3181 29.6518 13.3333 33.3333 13.3333H46.6667C50.3482 13.3333 53.3333 16.3181 53.3333 20V26.6667" stroke="var(--color-gold)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M40 46.6667C43.6819 46.6667 46.6667 43.6819 46.6667 40C46.6667 36.3181 43.6819 33.3333 40 33.3333C36.3181 33.3333 33.3333 36.3181 33.3333 40C33.3333 43.6819 36.3181 46.6667 40 46.6667Z" stroke="var(--color-gold)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <h2 class="cart-empty__title">Your bag is empty</h2>
+        <p class="cart-empty__description">Discover our luxury collection and add items to your bag</p>
+        <a href="/collections/all" class="btn btn--primary">Start Shopping</a>
+      </div>
+    </div>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Cart Page",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Cart Page"
+    }
+  ]
+}
+{% endschema %}

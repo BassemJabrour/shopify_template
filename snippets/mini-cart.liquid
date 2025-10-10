@@ -1,0 +1,158 @@
+<!-- snippets/mini-cart.liquid -->
+<div class="mini-cart" id="mini-cart" data-mini-cart>
+  <!-- Mini Cart Overlay -->
+  <div class="mini-cart__overlay" data-mini-cart-overlay></div>
+  
+  <!-- Mini Cart Content -->
+  <div class="mini-cart__content">
+    <!-- Mini Cart Header -->
+    <div class="mini-cart__header">
+      <h3 class="mini-cart__title">Your Bag</h3>
+      <button class="mini-cart__close" data-mini-cart-close aria-label="Close mini cart">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+    
+    <!-- Mini Cart Items -->
+    <div class="mini-cart__items" data-mini-cart-items>
+      {%- if cart.item_count > 0 -%}
+        {%- for item in cart.items -%}
+          <div class="mini-cart-item" data-item-key="{{ item.key }}">
+            <div class="mini-cart-item__container">
+              <!-- Product Image -->
+              <div class="mini-cart-item__image">
+                <a href="{{ item.url }}" aria-label="{{ item.product.title }}">
+                  {%- if item.image -%}
+                    {{ item.image | image_url: width: 80, height: 80, crop: 'center' | image_tag: 
+                      alt: item.image.alt | default: item.product.title, 
+                      class: 'mini-cart-item__image-img',
+                      loading: 'lazy'
+                    }}
+                  {%- else -%}
+                    <div class="mini-cart-item__image-placeholder">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <rect width="24" height="24" fill="var(--color-gray-200)" rx="2"/>
+                        <path d="M12 9V15M9 12H15" stroke="var(--color-gray-500)" stroke-width="2" stroke-linecap="round"/>
+                      </svg>
+                    </div>
+                  {%- endif -%}
+                </a>
+              </div>
+              
+              <!-- Product Details -->
+              <div class="mini-cart-item__details">
+                <a href="{{ item.url }}" class="mini-cart-item__title">{{ item.product.title }}</a>
+                
+                {%- unless item.variant.title contains 'Default' -%}
+                  <p class="mini-cart-item__variant">{{ item.variant.title }}</p>
+                {%- endunless -%}
+                
+                <div class="mini-cart-item__price">
+                  {%- if item.original_price != item.final_price -%}
+                    <span class="mini-cart-item__original-price">{{ item.original_price | money }}</span>
+                    <span class="mini-cart-item__final-price">{{ item.final_price | money }}</span>
+                  {%- else -%}
+                    <span class="mini-cart-item__final-price">{{ item.original_price | money }}</span>
+                  {%- endif -%}
+                </div>
+                
+                <!-- Quantity Controls -->
+                <div class="mini-cart-item__quantity">
+                  <div class="quantity-selector quantity-selector--mini">
+                    <button 
+                      type="button" 
+                      class="quantity-selector__btn quantity-selector__minus" 
+                      data-action="decrement"
+                      data-item-key="{{ item.key }}"
+                      aria-label="Decrease quantity"
+                    >
+                      <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                        <path d="M2 5H8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                      </svg>
+                    </button>
+                    
+                    <span class="quantity-selector__value" data-quantity>{{ item.quantity }}</span>
+                    
+                    <button 
+                      type="button" 
+                      class="quantity-selector__btn quantity-selector__plus" 
+                      data-action="increment"
+                      data-item-key="{{ item.key }}"
+                      aria-label="Increase quantity"
+                    >
+                      <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                        <path d="M5 2V8M2 5H8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Remove Button -->
+              <button 
+                type="button" 
+                class="mini-cart-item__remove" 
+                data-action="remove"
+                data-item-key="{{ item.key }}"
+                aria-label="Remove {{ item.product.title }} from cart"
+              >
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                  <path d="M3 3L9 9M3 9L9 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        {%- endfor -%}
+      {%- else -%}
+        <!-- Empty Mini Cart State -->
+        <div class="mini-cart__empty">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+            <path d="M16 16H32L35.2 24L42 36H6L12.8 24M16 16L12.8 24M16 16V12C16 9.79086 17.7909 8 20 8H28C30.2091 8 32 9.79086 32 12V16" stroke="var(--color-gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M24 28C26.2091 28 28 26.2091 28 24C28 21.7909 26.2091 20 24 20C21.7909 20 20 21.7909 20 24C20 26.2091 21.7909 28 24 28Z" stroke="var(--color-gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <p class="mini-cart__empty-text">Your bag is empty</p>
+        </div>
+      {%- endif -%}
+    </div>
+    
+    <!-- Mini Cart Footer -->
+    {%- if cart.item_count > 0 -%}
+      <div class="mini-cart__footer">
+        <!-- Subtotal -->
+        <div class="mini-cart__subtotal">
+          <span>Subtotal</span>
+          <span class="mini-cart__subtotal-price" data-mini-cart-subtotal>{{ cart.total_price | money }}</span>
+        </div>
+        
+        <!-- Actions -->
+        <div class="mini-cart__actions">
+          <a href="/cart" class="btn btn--outline btn--small">View Cart</a>
+          <a href="/checkout" class="btn btn--primary btn--small">Checkout</a>
+        </div>
+        
+        <!-- Trust Signals -->
+        <div class="mini-cart__trust">
+          <div class="trust-signals trust-signals--mini">
+            <div class="trust-signal">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M7 12.8333C10.2217 12.8333 12.8333 10.2217 12.8333 7C12.8333 3.77834 10.2217 1.16667 7 1.16667C3.77834 1.16667 1.16667 3.77834 1.16667 7C1.16667 10.2217 3.77834 12.8333 7 12.8333Z" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M5.25 7L6.41667 8.16667L8.75 5.83333" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span>Secure</span>
+            </div>
+            <div class="trust-signal">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M7 1.16667L11.6667 3.5V7C11.6667 10.2217 9.52167 12.8333 7 12.8333C4.47834 12.8333 2.33333 10.2217 2.33333 7V3.5L7 1.16667Z" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M7 7.58333V5.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M7 7.58333H7.00583" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span>Free Returns</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
