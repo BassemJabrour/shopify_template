@@ -19,8 +19,8 @@
   {%- endif -%}
   
   <!-- Theme CSS -->
-  {{ 'fonts.css.liquid' | asset_url | stylesheet_tag }}
-  {{ 'theme.css.liquid' | asset_url | stylesheet_tag }}
+  {{ 'fonts.css' | asset_url | stylesheet_tag }}
+  {{ 'theme.css' | asset_url | stylesheet_tag }}
   
   <!-- Shopify Required Scripts -->
   {{ content_for_header }}
