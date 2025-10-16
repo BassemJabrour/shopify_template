@@ -1376,6 +1376,56 @@ body {
   box-shadow: var(--shadow-md);
 }
 
+/* ===================== COLLECTION FILTERS ===================== */
+.filter-component {
+  position: relative;
+  padding: var(--space-4) 0;
+}
+
+.filter-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-4);
+}
+
+.filter-title {
+  color: var(--color-navy);
+}
+
+.filter-close-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-gray-600);
+}
+
+.filter-section { margin-bottom: var(--space-6); }
+.filter-section-title { margin-bottom: var(--space-3); color: var(--color-navy); }
+
+.price-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); margin-bottom: var(--space-3); }
+.price-input { width: 100%; padding: var(--space-2); border: 1px solid var(--color-gray-300); border-radius: var(--radius-md); }
+.price-label { display: block; margin-bottom: var(--space-1); color: var(--color-gray-700); }
+
+.price-slider-container { position: relative; height: 24px; }
+.price-slider { position: absolute; left: 0; right: 0; width: 100%; pointer-events: none; -webkit-appearance: none; background: none; }
+.price-slider::-webkit-slider-thumb { pointer-events: auto; -webkit-appearance: none; height: 16px; width: 16px; border-radius: var(--radius-full); background: var(--color-gold); border: 2px solid var(--color-white); box-shadow: var(--shadow-sm); }
+.price-slider-track { position: absolute; top: 10px; left: 0; right: 0; height: 4px; background: var(--color-gray-300); border-radius: var(--radius-full); }
+.price-values { display: flex; justify-content: space-between; margin-top: var(--space-2); color: var(--color-gray-700); }
+
+.availability-filters, .type-filters, .vendor-filters, .tag-filters, .color-filters, .size-filters {
+  display: grid; gap: var(--space-2);
+}
+
+.filter-checkbox { display: inline-flex; align-items: center; gap: var(--space-2); }
+.checkbox-custom { width: 16px; height: 16px; border: 1px solid var(--color-gray-400); border-radius: var(--radius-sm); display: inline-block; }
+.filter-label { color: var(--color-gray-700); }
+
+.color-swatch { width: 16px; height: 16px; border-radius: var(--radius-full); border: 1px solid var(--color-gray-300); display: inline-block; }
+.size-chip { padding: 2px 8px; border: 1px solid var(--color-gray-300); border-radius: var(--radius-full); font-size: var(--text-xs); color: var(--color-gray-700); }
+
+.filter-actions { display: flex; gap: var(--space-3); margin-top: var(--space-4); }
+
 /* Collection Page Styles - Luxury Women's Clothing */
 .collection-page {
   margin-top: 80px; /* Account for fixed header */
