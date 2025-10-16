@@ -4,13 +4,9 @@
   <div class="gallery-main">
     <div class="main-image-container" data-main-image-container>
       {% if product.featured_image %}
-        {{ product.featured_image | image_url: width: 800, height: 1000 | image_tag: 
-          alt: product.featured_image.alt,
-          class: 'main-image',
-          data: {
-            'zoom-image': product.featured_image | image_url: width: 1600
-          }
-        }}
+        {% assign main_image_src = product.featured_image | image_url: width: 800, height: 1000 %}
+        {% assign zoom_image_src = product.featured_image | image_url: width: 1600 %}
+        <img src="{{ main_image_src }}" alt="{{ product.featured_image.alt | escape }}" class="main-image" data-zoom-image="{{ zoom_image_src }}">
       {% else %}
         <div class="main-image-placeholder">
           <svg width="800" height="1000" viewBox="0 0 800 1000" fill="none">
@@ -97,13 +93,8 @@
 
       <div class="lightbox-image-container" data-lightbox-image-container>
         {% if product.featured_image %}
-          {{ product.featured_image | image_url: width: 1200 | image_tag: 
-            alt: product.featured_image.alt,
-            class: 'lightbox-image',
-            data: {
-              'lightbox-image': true
-            }
-          }}
+          {% assign lightbox_src = product.featured_image | image_url: width: 1200 %}
+          <img src="{{ lightbox_src }}" alt="{{ product.featured_image.alt | escape }}" class="lightbox-image" data-lightbox-image="true">
         {% endif %}
 
         <button class="lightbox-nav lightbox-nav--prev" data-lightbox-prev>

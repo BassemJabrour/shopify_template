@@ -1,26 +1,32 @@
 <!-- Hero Section -->
-<div class="hero" data-section-id="{{ section.id }}" data-section-type="hero">
+{% assign bg_image_url = nil %}
+{% if section.settings.background_image != blank %}
+  {% assign bg_image_url = section.settings.background_image | image_url: width: 1600 %}
+{% elsif section.settings.hero_image != blank %}
+  {% assign bg_image_url = section.settings.hero_image | image_url: width: 1600 %}
+{% endif %}
+
+<div class="hero" data-section-id="{{ section.id }}" data-section-type="hero" style="{%- if bg_image_url -%}background-image: url('{{ bg_image_url }}'); background-size: cover; background-position: center;{%- endif -%}">
+  {%- if bg_image_url -%}
+    <div class="hero__overlay" style="{%- if section.settings.show_overlay -%}background: rgba(0,0,0,{{ section.settings.overlay_opacity | default: 0.3 }});{%- endif -%}"></div>
+  {%- endif -%}
   <div class="hero__container">
     <div class="hero__content">
-      <h1 class="hero__title">
-        {{ section.settings.hero_title | default: "Timeless Elegance, Modern Luxury" }}
+      <h1 class="hero__title" style="{%- if section.settings.background_image != blank and section.settings.show_overlay -%}color: var(--color-cream);{%- endif -%}">
+        {{ section.settings.hero_title | default: "Elevate Your Modest Style" }}
       </h1>
-      <p class="hero__description">
-        {{ section.settings.hero_description | default: "Discover our curated collection of premium women's clothing, crafted with attention to detail and designed for the modern woman." }}
+      <p class="hero__description" style="{%- if section.settings.background_image != blank and section.settings.show_overlay -%}color: #f4f1eb;{%- endif -%}">
+        {{ section.settings.hero_description | default: "Discover breathable, elegant hijabs in chiffon, cotton and jersey for everyday comfort and occasions." }}
       </p>
       <div class="hero__actions">
-        <a href="/collections/all" class="hero__btn hero__btn--primary">
-          Shop Collection
-        </a>
-        <a href="/pages/about" class="hero__btn hero__btn--secondary">
-          Learn More
-        </a>
+        <a href="/collections/hijabs" class="hero__btn hero__btn--primary">Shop Hijabs</a>
+        <a href="/collections/under-scarves" class="hero__btn hero__btn--secondary">Under Scarves</a>
       </div>
     </div>
     
     {%- if section.settings.hero_image != blank -%}
       <div class="hero__image">
-        {{ section.settings.hero_image | image_url: width: 800 | image_tag: alt: section.settings.hero_title, class: 'hero__image-element' }}
+        {{ section.settings.hero_image | image_url: width: 400 | image_tag: alt: section.settings.hero_title, class: 'hero__image-element' }}
       </div>
     {%- endif -%}
   </div>
@@ -34,13 +40,33 @@
       "type": "text",
       "id": "hero_title",
       "label": "Hero title",
-      "default": "Timeless Elegance, Modern Luxury"
+      "default": "Elevate Your Modest Style"
     },
     {
       "type": "textarea",
       "id": "hero_description",
       "label": "Hero description",
-      "default": "Discover our curated collection of premium women's clothing, crafted with attention to detail and designed for the modern woman."
+      "default": "Discover breathable, elegant hijabs in chiffon, cotton and jersey for everyday comfort and occasions."
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_overlay",
+      "label": "Show dark overlay",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay opacity",
+      "min": 0,
+      "max": 0.6,
+      "step": 0.1,
+      "default": 0.3
     },
     {
       "type": "image_picker",

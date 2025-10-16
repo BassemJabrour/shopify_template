@@ -78,6 +78,26 @@
     </div>
   {% endif %}
 
+  <!-- Hijab Details -->
+  <div class="hijab-specs">
+    {% assign fabric = product.metafields.custom.fabric %}
+    {% assign opacity = product.metafields.custom.opacity %}
+    {% assign size_cm = product.metafields.custom.size_cm %}
+    {% if fabric or opacity or size_cm %}
+      <div class="specs-grid">
+        {% if fabric %}
+          <div class="spec-item"><span class="spec-label">Fabric:</span> <span class="spec-value">{{ fabric | capitalize }}</span></div>
+        {% endif %}
+        {% if opacity %}
+          <div class="spec-item"><span class="spec-label">Opacity:</span> <span class="spec-value">{{ opacity }}</span></div>
+        {% endif %}
+        {% if size_cm %}
+          <div class="spec-item"><span class="spec-label">Size:</span> <span class="spec-value">{{ size_cm }} cm</span></div>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+
   <!-- Product Badges -->
   <div class="product-badges">
     {% if product.compare_at_price > product.price %}

@@ -4,7 +4,7 @@
   <div class="product-card__image-container">
     <a href="{{ product.url }}" class="product-card__image-link">
       {% if product.featured_image %}
-        {{ product.featured_image | image_url: width: 400, height: 533 | image_tag: 
+        {{ product.featured_image | image_url: width: 600, height: 750 | image_tag: 
           alt: product.featured_image.alt, 
           class: 'product-card__image',
           loading: 'lazy'

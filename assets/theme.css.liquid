@@ -3,10 +3,11 @@
 /* CSS Variables - Luxury Color Palette */
 :root {
   /* Primary Colors */
-  --color-navy: #0A2540;
-  --color-cream: #F8F5F0;
-  --color-gold: #D4AF37;
-  --color-burgundy: #8B2635;
+  /* Hijab Store Palette */
+  --color-navy: #1F2A37; /* Deep Slate */
+  --color-cream: #FAF7F2; /* Soft Ivory */
+  --color-gold: #C7A27A; /* Warm Sand (accent) */
+  --color-burgundy: #6B4F4F; /* Rosewood */
   
   /* Semantic Colors */
   --color-primary: var(--color-navy);
@@ -1290,6 +1291,10 @@ body {
   background-color: var(--color-cream);
   padding: var(--space-16) 0;
 }
+/* overlay for hero background */
+.hero { position: relative; }
+.hero__overlay { position: absolute; inset: 0; }
+.hero__container { position: relative; }
 
 .hero__container {
   max-width: 1200px;
@@ -1425,6 +1430,37 @@ body {
 .size-chip { padding: 2px 8px; border: 1px solid var(--color-gray-300); border-radius: var(--radius-full); font-size: var(--text-xs); color: var(--color-gray-700); }
 
 .filter-actions { display: flex; gap: var(--space-3); margin-top: var(--space-4); }
+
+/* ===================== MODERN COLLECTION GRID ===================== */
+.collection-banner { background: linear-gradient(180deg, rgba(199,162,122,0.08), transparent); padding: var(--space-12) 0 var(--space-8); }
+.collection-banner__container { max-width: 1200px; margin: 0 auto; padding: 0 var(--space-6); text-align: center; }
+.collection-banner__title { font-family: var(--font-primary); font-size: var(--text-4xl); margin-bottom: var(--space-2); }
+.collection-banner__description { color: var(--color-gray-700); max-width: 720px; margin: 0 auto; }
+
+.main-collection__products { margin-top: var(--space-8); }
+.main-collection__products-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); }
+@media (min-width: 1024px) { .main-collection__products-grid { grid-template-columns: repeat(4, 1fr); gap: var(--space-8); } }
+
+/* Modern product card tweaks */
+.product-card { background: var(--color-white); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm); transition: var(--transition-base); }
+.product-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.product-card__image-container { position: relative; }
+.product-card__quick-actions { position: absolute; bottom: var(--space-3); left: 50%; transform: translateX(-50%); display: flex; gap: var(--space-2); opacity: 0; visibility: hidden; transition: var(--transition-base); }
+.product-card:hover .product-card__quick-actions { opacity: 1; visibility: visible; }
+.quick-action-btn { background: rgba(255,255,255,0.9); border: 1px solid var(--color-gray-200); border-radius: var(--radius-full); padding: 6px 10px; font-size: var(--text-sm); }
+.product-card__info { padding: var(--space-4); }
+.product-card__title { margin-bottom: var(--space-1); }
+.product-card__price { display: flex; align-items: center; gap: var(--space-2); }
+.product-price--compare { text-decoration: line-through; color: var(--color-gray-500); }
+
+/* ===================== MODERN PRODUCT PAGE ===================== */
+.product-layout { display: grid; grid-template-columns: 1fr; gap: var(--space-8); max-width: 1200px; margin: 0 auto; padding: 0 var(--space-6) var(--space-12); }
+@media (min-width: 1024px) { .product-layout { grid-template-columns: 1.2fr 0.8fr; align-items: start; } }
+.product-gallery-container, .product-info-container { background: var(--color-white); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); }
+.product-info-container { padding: var(--space-6); }
+.hijab-specs .specs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); margin-top: var(--space-4); }
+.spec-label { color: var(--color-gray-600); margin-right: var(--space-1); }
+.spec-value { color: var(--color-navy); font-weight: var(--font-medium); }
 
 /* Collection Page Styles - Luxury Women's Clothing */
 .collection-page {

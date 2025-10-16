@@ -3,11 +3,12 @@
     "main-hero": {
       "type": "hero",
       "settings": {
-        "hero_title": "Timeless Elegance, Modern Luxury",
-        "hero_description": "Discover our curated collection of premium women's clothing, crafted with attention to detail and designed for the modern woman.",
+        "hero_title": "Elevate Your Modest Style",
+        "hero_description": "Discover breathable, elegant hijabs in chiffon, cotton and jersey for everyday comfort and occasions.",
         "hero_image": null
       }
-    }
+    },
+    "featured-collections": { "type": "featured-collections", "settings": {} }
   },
-  "order": ["main-hero"]
+  "order": ["main-hero", "featured-collections"]
 }

@@ -2,15 +2,12 @@
 {% paginate collection.products by section.settings.products_per_page %}
 
 <div class="main-collection" data-section-id="{{ section.id }}" data-section-type="main-collection">
-  <!-- Collection Header -->
-  <div class="main-collection__header">
-    <div class="main-collection__header-container">
-      <h1 class="main-collection__title">{{ collection.title }}</h1>
-      
+  <!-- Collection Banner -->
+  <div class="collection-banner">
+    <div class="collection-banner__container">
+      <h1 class="collection-banner__title">{{ collection.title }}</h1>
       {% if section.settings.show_collection_description and collection.description != blank %}
-        <div class="main-collection__description">
-          {{ collection.description }}
-        </div>
+        <p class="collection-banner__description">{{ collection.description }}</p>
       {% endif %}
     </div>
   </div>
