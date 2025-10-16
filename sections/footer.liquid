@@ -60,7 +60,8 @@
       <div class="footer__column footer__links">
         <h3 class="footer__column-title">Quick Links</h3>
         <ul class="footer__link-list">
-          {%- for link in linklists.footer.links -%}
+          {%- assign footer_menu = section.settings.footer_menu | default: 'footer' -%}
+          {%- for link in linklists[footer_menu].links -%}
             <li class="footer__link-item">
               <a href="{{ link.url }}" class="footer__link">{{ link.title }}</a>
             </li>
@@ -140,6 +141,11 @@
       "id": "show_payment_icons",
       "label": "Show payment icons",
       "default": true
+    },
+    {
+      "type": "link_list",
+      "id": "footer_menu",
+      "label": "Footer menu"
     }
   ]
 }

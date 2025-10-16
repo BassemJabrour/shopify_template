@@ -82,6 +82,30 @@
           </div>
         </div>
 
+<!-- Product and Variants JSON for scripts -->
+<script type="application/json" id="ProductJson-{{ product.id }}">{{ product | json }}</script>
+<script type="application/json" id="ProductVariantsJson-{{ product.id }}">{{ product.variants | json }}</script>
+
+{% schema %}
+{
+  "name": "Main Product",
+  "settings": [
+    { "type": "checkbox", "id": "enable_video_looping", "default": false, "label": "Enable video looping" },
+    { "type": "checkbox", "id": "enable_image_zoom", "default": true, "label": "Enable image zoom" },
+    { "type": "checkbox", "id": "enable_payment_button", "default": true, "label": "Enable dynamic checkout button" },
+    { "type": "checkbox", "id": "show_quantity_selector", "default": true, "label": "Show quantity selector" },
+    { "type": "checkbox", "id": "show_vendor", "default": true, "label": "Show vendor" },
+    { "type": "checkbox", "id": "show_sku", "default": true, "label": "Show SKU" },
+    { "type": "checkbox", "id": "show_type", "default": true, "label": "Show product type" },
+    { "type": "checkbox", "id": "show_tags", "default": true, "label": "Show tags" },
+    { "type": "checkbox", "id": "show_collections", "default": true, "label": "Show collections" }
+  ],
+  "presets": [
+    { "name": "Main Product", "category": "Product" }
+  ]
+}
+{% endschema %}
+
         <!-- Returns -->
         <div class="trust-signal">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="trust-icon">

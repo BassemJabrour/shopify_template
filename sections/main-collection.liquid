@@ -73,57 +73,7 @@
           <button class="main-collection__filters-close" data-filters-close>×</button>
         </div>
 
-        <!-- Price Filter -->
-        <div class="main-collection__filter-group">
-          <h4 class="main-collection__filter-title">Price</h4>
-          <div class="main-collection__price-filter">
-            <input type="range" id="price-min" min="0" max="1000" value="0" class="main-collection__price-slider">
-            <input type="range" id="price-max" min="0" max="1000" value="1000" class="main-collection__price-slider">
-            <div class="main-collection__price-values">
-              <span class="main-collection__price-min">$0</span>
-              <span class="main-collection__price-max">$1000</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Tag Filter -->
-        {% if collection.all_tags.size > 0 %}
-          <div class="main-collection__filter-group">
-            <h4 class="main-collection__filter-title">Tags</h4>
-            <div class="main-collection__tag-filters">
-              {% for tag in collection.all_tags %}
-                {% unless tag contains 'filter_' %}
-                  <label class="main-collection__tag-filter-label">
-                    <input type="checkbox" name="tag" value="{{ tag | handle }}" 
-                           {% if current_tags contains tag %}checked{% endif %}>
-                    <span class="main-collection__tag-filter-text">{{ tag }}</span>
-                  </label>
-                {% endunless %}
-              {% endfor %}
-            </div>
-          </div>
-        {% endif %}
-
-        <!-- Category Filter -->
-        {% if collection.all_types.size > 0 %}
-          <div class="main-collection__filter-group">
-            <h4 class="main-collection__filter-title">Category</h4>
-            <div class="main-collection__category-filters">
-              {% for type in collection.all_types %}
-                <label class="main-collection__category-filter-label">
-                  <input type="checkbox" name="type" value="{{ type | handle }}">
-                  <span class="main-collection__category-filter-text">{{ type }}</span>
-                </label>
-              {% endfor %}
-            </div>
-          </div>
-        {% endif %}
-
-        <!-- Filter Actions -->
-        <div class="main-collection__filter-actions">
-          <button class="main-collection__filter-apply-btn btn-primary">Apply Filters</button>
-          <button class="main-collection__filter-clear-btn btn-secondary">Clear All</button>
-        </div>
+        {% render 'filter' %}
       </aside>
     {% endif %}
 

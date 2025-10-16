@@ -45,7 +45,13 @@
   <!-- Footer Section -->
   {% section 'footer' %}
   
+  {% render 'mini-cart' %}
+  {% render 'cart-notification' %}
+
   <!-- JavaScript -->
+  {{ 'cart.js' | asset_url | script_tag }}
+  {% if template.name == 'product' %}{{ 'product.js' | asset_url | script_tag }}{% endif %}
+  {% if template.name == 'collection' %}{{ 'collection.js' | asset_url | script_tag }}{% endif %}
   <script>
     // Theme JavaScript
     document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
