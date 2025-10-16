@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main-hero": {
@@ -5,10 +14,18 @@
       "settings": {
         "hero_title": "Elevate Your Modest Style",
         "hero_description": "Discover breathable, elegant hijabs in chiffon, cotton and jersey for everyday comfort and occasions.",
-        "hero_image": null
+        "background_image": "shopify://shop_images/photo_6019223544258480301_x_-_Copie.jpg",
+        "show_overlay": true,
+        "overlay_opacity": 0.6
       }
     },
-    "featured-collections": { "type": "featured-collections", "settings": {} }
+    "featured-collections": {
+      "type": "featured-collections",
+      "settings": {}
+    }
   },
-  "order": ["main-hero", "featured-collections"]
+  "order": [
+    "main-hero",
+    "featured-collections"
+  ]
 }
