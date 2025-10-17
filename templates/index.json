@@ -11,10 +11,7 @@
   "sections": {
     "main-hero": {
       "type": "hero",
-      "custom_css": [
-        ".hero {max-width: 700px; margin: 0 auto; }",
-        " .hero-background {background-size: contain !important; max-width: 700px !important; margin: 0 auto !important; }"
-      ],
+      "custom_css": [],
       "settings": {
         "hero_title": "Elevate Your Modest Style",
         "hero_description": "Discover breathable, elegant hijabs in chiffon, cotton and jersey for everyday comfort and occasions.",
