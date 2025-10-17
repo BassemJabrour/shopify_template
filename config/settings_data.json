@@ -1,35 +1,52 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "current": {
+    "color_navy": "#2563eb",
+    "color_cream": "#ffffff",
+    "color_gold": "#6b7280",
+    "color_burgundy": "#7c3aed",
+    "body_font": "inter",
     "sections": {
       "header": {
         "type": "header",
         "settings": {
-          "logo": null,
-          "logo_max_width": 100
+          "logo_max_width": 100,
+          "main_menu": ""
         }
       },
       "footer": {
         "type": "footer",
         "settings": {
-          "logo": null,
           "brand_description": "Luxury women's clothing boutique offering premium quality and timeless elegance.",
           "show_social_icons": true,
           "social_facebook_link": "",
           "social_instagram_link": "",
           "social_pinterest_link": "",
-          "show_payment_icons": true
+          "show_payment_icons": true,
+          "footer_menu": ""
         }
       }
     },
-    "content_for_index": [
-      {
-        "type": "hero",
-        "settings": {
-          "hero_title": "Timeless Elegance, Modern Luxury",
-          "hero_description": "Discover our curated collection of premium women's clothing, crafted with attention to detail and designed for the modern woman.",
-          "hero_image": null
-        }
-      }
+    "content_for_index": []
+  },
+  "platform_customizations": {
+    "custom_css": [
+      ".card {border-radius: 30px }",
+      "/* Modern Button Styles */.btn, .button, input[type=\"submit\"], button {border-radius: 8px !important; font-weight: 600 !important; padding: 12px 24px !important; border: none !important; box-shadow: none !important; transition: all 0.2s ease !important;}",
+      "/* Remove excessive shadows */.card, .product-card, .collection-card {box-shadow: 0 1px 3px rgba(0,0,0,0.1) !important; border: 1px solid #f3f4f6 !important;}",
+      "/* Header improvements */.header, .site-header {padding: 16px 0 !important; border-bottom: 1px solid #e5e7eb !important; box-shadow: none !important;}",
+      "/* Navigation spacing */.main-nav ul {gap: 32px !important;}",
+      ".main-nav a {font-weight: 500 !important; padding: 8px 0 !important;}",
+      "/* Modern headings */h1, h2, h3 {font-weight: 700 !important; line-height: 1.2 !important;}",
+      "/* Flat design elements */.section, .container {box-shadow: none !important; border-radius: 0 !important;}"
     ]
   }
 }
